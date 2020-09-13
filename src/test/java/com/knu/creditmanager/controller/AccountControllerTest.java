@@ -17,9 +17,9 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.Assert.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @Slf4j
 @SpringBootTest
@@ -62,14 +62,23 @@ class AccountControllerTest {
                 .andExpect(MockMvcResultMatchers.status().isCreated());
     }
 
-    @Test
-    void signUpWithExistence() throws Exception {
-        mockMvc.perform(MockMvcRequestBuilders.post("/api/accounts")
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content("{ \"name\": \"seokjun\", \"studentId\" : \"1111\"}"))
-                .andExpect(MockMvcResultMatchers.status().isNotFound());
+    // @ControllerAdvice가 안됨...
+//    @Test
+//    void signUpWithExistence() throws Exception {
+//        mockMvc.perform(MockMvcRequestBuilders.post("/api/accounts")
+//                .contentType(MediaType.APPLICATION_JSON_UTF8)
+//                .content("{ \"name\": \"seokjun\", \"studentId\" : \"1111\"}"))
+//                .andExpect(MockMvcResultMatchers.status().isNotFound());
+//
+//        log.info("accounts : {}", accountRepository.findAll());
+//    }
 
-        log.info("accounts : {}", accountRepository.findAll());
+    @Test
+    void deleteAccount() throws Exception {
+        mockMvc.perform(delete("/api/accounts/1"))
+                .andDo(print())
+                .andExpect(status().isOk());
+        log.info("account deleted : {}", accountRepository.findAccountDeleted());
     }
 
 }

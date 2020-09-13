@@ -35,10 +35,13 @@ public class Account {
 
     private LocalDate admissionDate;
 
+    @Setter
+    @ColumnDefault("0")
+    private boolean isDeleted;
+
     @ColumnDefault("0")
     private boolean isMulti;    // 복전
 
     @ColumnDefault("0")
     private boolean istransfer;    // 편입
-
 }

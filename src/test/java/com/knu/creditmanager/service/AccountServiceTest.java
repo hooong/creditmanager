@@ -1,6 +1,7 @@
 package com.knu.creditmanager.service;
 
 import com.knu.creditmanager.domain.Account;
+import com.knu.creditmanager.domain.StudentIdExistedException;
 import com.knu.creditmanager.repository.AccountRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;

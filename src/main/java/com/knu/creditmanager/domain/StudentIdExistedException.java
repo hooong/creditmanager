@@ -1,7 +1,7 @@
-package com.knu.creditmanager.service;
+package com.knu.creditmanager.domain;
 
 public class StudentIdExistedException extends RuntimeException{
-    StudentIdExistedException(String studentId){
+    public StudentIdExistedException(String studentId){
         super("학번 " + studentId + "는 이미 존재합니다.");
     }
 }
