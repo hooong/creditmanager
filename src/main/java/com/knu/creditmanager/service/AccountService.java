@@ -10,10 +10,15 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
+@Transactional
 public class AccountService {
 
-    @Autowired
     private AccountRepository accountRepository;
+
+    @Autowired
+    public AccountService(AccountRepository accountRepository) {
+        this.accountRepository = accountRepository;
+    }
 
     @Transactional(readOnly = true)
     public List<Account> getAllAccounts() {
@@ -27,30 +32,30 @@ public class AccountService {
         return account;
     }
 
-    @Transactional
-    public Long create(Account account) {
-//        if(checkExistence(account.getStudentId())) {
-//            throw new StudentIdExistedException(account.getStudentId());
-//        }
+    public Account registerAccount(Account account) {
+        // TODO: Dto 만들고 회원가입 폼에서 받아오는 값 설정
+        if(checkExistence(account.getStudentId())) {
+            throw new StudentIdExistedException(account.getStudentId());
+        }
 
-        return accountRepository.save(account).getId();
+        return accountRepository.save(account);
     }
 
     // TODO: 회원가입시 valid 구현
 
     // 학번 존재 확인 메서드
-//    private boolean checkExistence(String studentId) {
-//        Account account = accountRepository.findByStudentId(studentId).orElse(null);
-//
-//        return account != null;
-//    }
+    private boolean checkExistence(String studentId) {
+        Account account = accountRepository.findByStudentId(studentId).orElse(null);
+
+        return account != null;
+    }
 
     @Transactional
-    public void delete(Long id) {
+    public Account delete(Long id) {
         Account account = accountRepository.findById(id).orElseThrow(
                 () -> new RuntimeException("해당 아이디가 존재하지 않습니다."));
 
         account.setDeleted(true);
-        accountRepository.save(account);
+        return accountRepository.save(account);
     }
 }

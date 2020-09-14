@@ -33,13 +33,21 @@ public class AccountController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public void signUp(@RequestBody Account resource){
-        accountService.create(resource);
+    public ResponseEntity<?> signUp(@RequestBody Account resource) throws URISyntaxException {
+        Account account = accountService.registerAccount(resource);
+
+        URI location = new URI("/api/accounts/" + account.getId());
+        return ResponseEntity.created(location).body("{\"message\": \"Success Created\"}");
     }
 
     @DeleteMapping("/{id}")
-    public void deleteAccount(@PathVariable Long id) {
-        accountService.delete(id);
+    public ResponseEntity<?> deleteAccount(@PathVariable Long id) throws URISyntaxException {
+        // TODO: 이메일이 존재하는지 검사
+
+        Account account = accountService.delete(id);
+
+        URI location = new URI("/api/accounts/" + account.getId());
+        return ResponseEntity.ok().body("{\"message\" : \"Success Delete\"}");
     }
 
 }
