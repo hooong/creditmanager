@@ -4,6 +4,7 @@ import com.knu.creditmanager.domain.Account;
 import com.knu.creditmanager.domain.StudentIdExistedException;
 import com.knu.creditmanager.account.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,9 +16,12 @@ public class AccountService {
 
     private AccountRepository accountRepository;
 
+    PasswordEncoder passwordEncoder;
+
     @Autowired
-    public AccountService(AccountRepository accountRepository) {
+    public AccountService(AccountRepository accountRepository, PasswordEncoder passwordEncoder) {
         this.accountRepository = accountRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Transactional(readOnly = true)
@@ -37,6 +41,9 @@ public class AccountService {
         if(checkExistence(account.getStudentId())) {
             throw new StudentIdExistedException(account.getStudentId());
         }
+
+        // TODO: 패스워드 인코딩해서 세이브
+        // String encodedPassWord = passwordEncoder.encode();
 
         return accountRepository.save(account);
     }
