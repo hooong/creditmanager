@@ -1,6 +1,7 @@
 package com.knu.creditmanager.account;
 
 import com.knu.creditmanager.domain.Account;
+import com.knu.creditmanager.exception.PasswordWrongException;
 import com.knu.creditmanager.exception.StudentIdExistedException;
 import com.knu.creditmanager.exception.StudentIdNotExistedException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,5 +69,16 @@ public class AccountService {
 
         account.setDeleted(true);
         return accountRepository.save(account);
+    }
+
+    public Account authenticate(String studentId, String password) {
+        Account account = accountRepository.findByStudentId(studentId)
+                .orElseThrow(() -> new StudentIdNotExistedException());
+
+        if(!passwordEncoder.matches(password, account.getPassword())) {
+            throw new PasswordWrongException();
+        }
+
+        return account;
     }
 }

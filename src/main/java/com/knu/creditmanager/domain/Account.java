@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import java.time.LocalDate;
 
 @Entity
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -18,13 +19,10 @@ public class Account {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Getter
     private Long id;
 
-    @Getter
     private String name;
 
-    @Getter
     private String studentId;
 
     private String password;
