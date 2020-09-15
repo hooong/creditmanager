@@ -1,6 +1,7 @@
 package com.knu.creditmanager.account;
 
-import com.knu.creditmanager.domain.StudentIdExistedException;
+import com.knu.creditmanager.exception.StudentIdExistedException;
+import com.knu.creditmanager.exception.StudentIdNotExistedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
@@ -12,6 +13,13 @@ public class AccountErrorAdvice extends ResponseEntityExceptionHandler {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(StudentIdExistedException.class)
     public String handleExisted() {
+        return "{}";
+    }
+
+    @ResponseBody
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ExceptionHandler(StudentIdNotExistedException.class)
+    public String handleNotExisted() {
         return "{}";
     }
 }

@@ -1,8 +1,8 @@
 package com.knu.creditmanager.account;
 
 import com.knu.creditmanager.domain.Account;
-import com.knu.creditmanager.domain.StudentIdExistedException;
-import com.knu.creditmanager.account.AccountRepository;
+import com.knu.creditmanager.exception.StudentIdExistedException;
+import com.knu.creditmanager.exception.StudentIdNotExistedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -40,7 +40,7 @@ public class AccountService {
         // TODO: Dto 만들고 회원가입 폼에서 받아오는 값 설정
         if(checkExistence(registerAccountDto.getStudentId())) {
             throw new StudentIdExistedException(registerAccountDto.getStudentId());
-        }
+       }
 
         String encodedPassWord = passwordEncoder.encode(registerAccountDto.getPassword());
 
@@ -64,7 +64,7 @@ public class AccountService {
     @Transactional
     public Account delete(Long id) {
         Account account = accountRepository.findById(id).orElseThrow(
-                () -> new RuntimeException("해당 아이디가 존재하지 않습니다."));
+                () -> new StudentIdNotExistedException());
 
         account.setDeleted(true);
         return accountRepository.save(account);

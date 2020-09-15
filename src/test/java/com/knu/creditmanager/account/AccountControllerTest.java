@@ -1,9 +1,7 @@
 package com.knu.creditmanager.account;
 
-import com.knu.creditmanager.account.AccountController;
 import com.knu.creditmanager.domain.Account;
-import com.knu.creditmanager.domain.StudentIdExistedException;
-import com.knu.creditmanager.account.AccountService;
+import com.knu.creditmanager.exception.StudentIdExistedException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

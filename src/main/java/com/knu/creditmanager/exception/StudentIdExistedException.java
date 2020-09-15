@@ -1,4 +1,4 @@
-package com.knu.creditmanager.domain;
+package com.knu.creditmanager.exception;
 
 public class StudentIdExistedException extends RuntimeException{
     public StudentIdExistedException(String studentId){
