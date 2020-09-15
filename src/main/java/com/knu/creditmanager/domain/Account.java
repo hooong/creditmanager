@@ -1,20 +1,16 @@
 package com.knu.creditmanager.domain;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
 @Getter
 @NoArgsConstructor
-@AllArgsConstructor
 @Builder
-@ToString
 public class Account {
 
     @Id
@@ -23,11 +19,19 @@ public class Account {
 
     private String name;
 
+    @Column(unique = true)
     private String studentId;
 
     private String password;
 
-    private String major;       // 학과
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "major_id", nullable = false)
+    private Department major;       // 학과
+
+    // 수업
+    //    @Transient
+    //    @JsonInclude(JsonInclude.Include.NON_NULL)
+    //    private List<Course> courseList;
 
     private String grade;       // 학점
 
