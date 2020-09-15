@@ -30,7 +30,8 @@ public class AccountController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<?> signUp(@RequestBody Account resource) throws URISyntaxException {
+    public ResponseEntity<?> signUp(@RequestBody RegisterAccountDto resource) throws URISyntaxException {
+
         Account account = accountService.registerAccount(resource);
 
         URI location = new URI("/api/accounts/" + account.getId());

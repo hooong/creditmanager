@@ -36,14 +36,18 @@ public class AccountService {
         return account;
     }
 
-    public Account registerAccount(Account account) {
+    public Account registerAccount(RegisterAccountDto registerAccountDto) {
         // TODO: Dto 만들고 회원가입 폼에서 받아오는 값 설정
-        if(checkExistence(account.getStudentId())) {
-            throw new StudentIdExistedException(account.getStudentId());
+        if(checkExistence(registerAccountDto.getStudentId())) {
+            throw new StudentIdExistedException(registerAccountDto.getStudentId());
         }
 
-        // TODO: 패스워드 인코딩해서 세이브
-        // String encodedPassWord = passwordEncoder.encode();
+        String encodedPassWord = passwordEncoder.encode(registerAccountDto.getPassword());
+
+        Account account = Account.builder()
+                .studentId(registerAccountDto.getStudentId())
+                .password(encodedPassWord)
+                .name(registerAccountDto.getName()).build();
 
         return accountRepository.save(account);
     }

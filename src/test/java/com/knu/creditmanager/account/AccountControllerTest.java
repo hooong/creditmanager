@@ -69,16 +69,17 @@ public class AccountControllerTest {
     @Test
     public void signUpWithValidData() throws Exception {
         given(accountService.registerAccount(any())).will(invocation -> {
-            Account account = invocation.getArgument(0);
+            RegisterAccountDto account = invocation.getArgument(0);
             return Account.builder()
                     .id(1L)
                     .studentId("1234")
-                    .name("seokjun").build();
+                    .name("seokjun")
+                    .password("1234").build();
         });
 
         mockMvc.perform(post("/api/accounts")
                 .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content("{ \"name\": \"seokjun\", \"stdentId\" : \"1234\"}"))
+                .content("{ \"name\": \"seokjun\", \"studentId\" : \"1234\", \"password\":\"1234\"}"))
                 .andDo(print())
                 .andExpect(status().isCreated())
                 .andExpect(content().string(containsString("Success")));
