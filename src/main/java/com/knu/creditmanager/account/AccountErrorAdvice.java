@@ -1,4 +1,4 @@
-package com.knu.creditmanager.controller;
+package com.knu.creditmanager.account;
 
 import com.knu.creditmanager.domain.StudentIdExistedException;
 import org.springframework.http.HttpStatus;

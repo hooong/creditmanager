@@ -1,4 +1,4 @@
-package com.knu.creditmanager.repository;
+package com.knu.creditmanager.account;
 
 import com.knu.creditmanager.domain.Account;
 import org.springframework.data.jpa.repository.JpaRepository;

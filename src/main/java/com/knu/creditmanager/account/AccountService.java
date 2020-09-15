@@ -1,8 +1,8 @@
-package com.knu.creditmanager.service;
+package com.knu.creditmanager.account;
 
 import com.knu.creditmanager.domain.Account;
 import com.knu.creditmanager.domain.StudentIdExistedException;
-import com.knu.creditmanager.repository.AccountRepository;
+import com.knu.creditmanager.account.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -1,8 +1,6 @@
-package com.knu.creditmanager.controller;
+package com.knu.creditmanager.account;
 
 import com.knu.creditmanager.domain.Account;
-import com.knu.creditmanager.domain.StudentIdExistedException;
-import com.knu.creditmanager.service.AccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -10,7 +8,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
 import java.util.List;
 
 @CrossOrigin
