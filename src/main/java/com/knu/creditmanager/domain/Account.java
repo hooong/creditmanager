@@ -3,6 +3,7 @@ package com.knu.creditmanager.domain;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -10,6 +11,7 @@ import java.time.LocalDate;
 @Entity
 @Getter
 @NoArgsConstructor
+@RequiredArgsConstructor
 @Builder
 public class Account {
 
