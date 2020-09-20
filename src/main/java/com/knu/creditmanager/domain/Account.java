@@ -30,9 +30,9 @@ public class Account {
     @NonNull
     private String password;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "major_id", nullable = false)
-    private Department major;       // 학과
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "major_id", nullable = false)
+//    private Department major;       // 학과
 
     // 수업
     //    @Transient
