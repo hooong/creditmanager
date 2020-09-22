@@ -30,18 +30,19 @@ public class Account {
     @NonNull
     private String password;
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "major_id", nullable = false)
-//    private Department major;       // 학과
+    @OneToOne
+    @JoinColumn(name = "department_id", nullable = false)
+    private Department major;       // 학과
 
     // 수업
     //    @Transient
     //    @JsonInclude(JsonInclude.Include.NON_NULL)
     //    private List<Course> courseList;
 
-    private String grade;       // 학점
+    @ColumnDefault("0")
+    private Double grade;       // 학점
 
-    private LocalDate admissionDate;
+    private LocalDate admissionYear;
 
     @Setter
     @ColumnDefault("0")

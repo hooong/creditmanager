@@ -1,22 +1,12 @@
 spring:
   datasource:
-    url: jdbc:h2:~/data/creditmanager
+    url: jdbc:h2:tcp://localhost/~/creditmanager
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
   jpa:
     show-sql: true
     ddl-auto: update
-
-#spring:
-#  datasource:
-#    driver-class-name: com.mysql.cj.jdbc.Driver
-#    password:
-#    url: jdbc:mysql://knu-credit.csccnv3led8h.ap-northeast-2.rds.amazonaws.com:3306/credit_knu?useSSL=false&characterEncoding=UTF-8&serverTimezone=UTC
-#    username:
-#  jpa:
-#    database: mysql
-#    generate-ddl: true
-#    show-sql: true
-#    hibernate:
-#      ddl-auto: update
 
 jwt:
   secret: 12345678901234567890123456789012
