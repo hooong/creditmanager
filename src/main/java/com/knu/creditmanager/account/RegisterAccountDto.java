@@ -4,8 +4,9 @@ import lombok.Data;
 
 @Data
 public class RegisterAccountDto {
-    // TODO: valid구현해야함.
-    String studentId;
-    String password;
-    String name;
+    private String studentId;
+    private String password;
+    private String name;
+    private String semester;
+    private String major;
 }

@@ -30,6 +30,10 @@ public class Account {
     @NonNull
     private String password;
 
+    @NonNull
+    private String semester;    // TODO: 학기 및 학년을 어떻게 저장할지?
+
+    @NonNull
     @OneToOne
     @JoinColumn(name = "department_id", nullable = false)
     private Department major;       // 학과
@@ -42,7 +46,7 @@ public class Account {
     @ColumnDefault("0")
     private Double grade;       // 학점
 
-    private LocalDate admissionYear;
+    private String admissionYear;
 
     @Setter
     @ColumnDefault("0")
@@ -53,4 +57,8 @@ public class Account {
 
     @ColumnDefault("0")
     private boolean istransfer;    // 편입
+
+    public void setAdmissionYear() {
+        admissionYear = semester.substring(0,3);
+    }
 }

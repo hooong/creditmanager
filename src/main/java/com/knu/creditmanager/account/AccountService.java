@@ -1,9 +1,12 @@
 package com.knu.creditmanager.account;
 
+import com.knu.creditmanager.department.DepartmentService;
 import com.knu.creditmanager.domain.Account;
+import com.knu.creditmanager.domain.Department;
 import com.knu.creditmanager.exception.PasswordWrongException;
 import com.knu.creditmanager.exception.StudentIdExistedException;
 import com.knu.creditmanager.exception.StudentIdNotExistedException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -13,17 +16,14 @@ import java.util.List;
 
 @Service
 @Transactional
+@RequiredArgsConstructor
 public class AccountService {
 
-    private AccountRepository accountRepository;
+    private final AccountRepository accountRepository;
 
-    PasswordEncoder passwordEncoder;
+    private final DepartmentService departmentService;
 
-    @Autowired
-    public AccountService(AccountRepository accountRepository, PasswordEncoder passwordEncoder) {
-        this.accountRepository = accountRepository;
-        this.passwordEncoder = passwordEncoder;
-    }
+    private final PasswordEncoder passwordEncoder;
 
     @Transactional(readOnly = true)
     public List<Account> getAllAccounts() {
@@ -44,11 +44,15 @@ public class AccountService {
        }
 
         String encodedPassWord = passwordEncoder.encode(registerAccountDto.getPassword());
+        Department department = departmentService.getDepartment(registerAccountDto.getMajor());
 
-        Account account = Account.builder()
-                .studentId(registerAccountDto.getStudentId())
-                .password(encodedPassWord)
-                .name(registerAccountDto.getName()).build();
+        Account account = new Account(registerAccountDto.getName(),
+                registerAccountDto.getStudentId(),
+                encodedPassWord,
+                registerAccountDto.getSemester(),
+                department
+                );
+        account.setAdmissionYear();
 
         return accountRepository.save(account);
     }

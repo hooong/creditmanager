@@ -1,6 +1,7 @@
 package com.knu.creditmanager.department;
 
 import com.knu.creditmanager.domain.Department;
+import com.knu.creditmanager.exception.DepartmentNotExistedException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +15,10 @@ public class DepartmentService {
 
     public List<Department> getAllDepartment() {
         return departmentRepository.findAll();
+    }
+
+    public Department getDepartment(String name) {
+        return departmentRepository.findAllByName(name).orElseThrow(() -> new DepartmentNotExistedException(name));
     }
 
     public void createAll(List<Department> departmentList) {

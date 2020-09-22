@@ -1,6 +1,7 @@
 package com.knu.creditmanager.account;
 
 import com.knu.creditmanager.domain.Account;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,10 +14,10 @@ import java.util.List;
 @CrossOrigin
 @RequestMapping(value = "/api/accounts")
 @RestController
+@RequiredArgsConstructor
 public class AccountController {
 
-    @Autowired
-    private AccountService accountService;
+    private final AccountService accountService;
 
     @GetMapping
     public List<Account> getAccountslist() {
@@ -40,8 +41,6 @@ public class AccountController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<?> deleteAccount(@PathVariable Long id) throws URISyntaxException {
-        // TODO: 이메일이 존재하는지 검사
-
         Account account = accountService.delete(id);
 
         URI location = new URI("/api/accounts/" + account.getId());
