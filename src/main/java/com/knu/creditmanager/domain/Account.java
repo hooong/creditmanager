@@ -43,7 +43,7 @@ public class Account {
     //    @JsonInclude(JsonInclude.Include.NON_NULL)
     //    private List<Course> courseList;
 
-    @ColumnDefault("0")
+
     private Double grade;       // 학점
 
     private String admissionYear;
@@ -59,6 +59,6 @@ public class Account {
     private boolean istransfer;    // 편입
 
     public void setAdmissionYear() {
-        admissionYear = semester.substring(0,3);
+        admissionYear = studentId.substring(0,4);
     }
 }
