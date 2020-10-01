@@ -3,10 +3,14 @@ package com.knu.creditmanager.department;
 import com.knu.creditmanager.domain.Department;
 import com.knu.creditmanager.exception.DepartmentExistedException;
 import com.knu.creditmanager.exception.DepartmentNotExistedException;
+import com.mysql.cj.xdevapi.JsonArray;
 import lombok.RequiredArgsConstructor;
+import org.json.JSONArray;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @Service
 @RequiredArgsConstructor

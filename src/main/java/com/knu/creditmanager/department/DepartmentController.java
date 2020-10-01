@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/api/departments")
@@ -41,7 +42,7 @@ public class DepartmentController {
     }
 
     // 배열로 입력 받은 학과 모두 생성
-    @PostMapping
+    @PostMapping("/all")
     @Transactional
     public ResponseEntity<?> createDepartments(
             @RequestBody List<Department> departmentList) {
