@@ -2,10 +2,12 @@ package com.knu.creditmanager.course;
 
 import com.knu.creditmanager.domain.Course;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Service
 public class CourseService {
 
     @Autowired
@@ -21,7 +23,8 @@ public class CourseService {
     }
 
     public Course getCourse(Long courseCord){
-        Course course = CourseRepository.findByCourseCord(courseCord);
+        Course course = CourseRepository.findByCourseCord(courseCord).orElse(null);
+        return course;
     }
 
     public Course addCourse(Course course) {

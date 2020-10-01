@@ -10,7 +10,7 @@ public interface CourseRepository extends CrudRepository<Course,Long> {
 
     List<Course> findAll();
 
-    Optional<Course> findByCourseCord(Long course);
+    Optional<Course> findByCourseCord(Long courseCord);
 
     Course save(Course course);
 }
