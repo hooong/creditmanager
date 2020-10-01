@@ -8,9 +8,9 @@ import java.util.Optional;
 
 public interface CourseRepository extends CrudRepository<Course,Long> {
 
-    static List<Course> findAll();
+    List<Course> findAll();
 
-    Optional<Course> findByCourseCord(Long id);
+    Optional<Course> findByCourseCord(Long course);
 
     Course save(Course course);
 }

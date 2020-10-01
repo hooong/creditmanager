@@ -28,5 +28,9 @@ public class Course {
     private int coursePoint;
 
 
-
+    public void updateInformation(String courseName, int coursePoint, String courseType) {
+        this.courseName = courseName;
+        this.courseType = courseType;
+        this.coursePoint = coursePoint;
+    }
 }
