@@ -10,6 +10,8 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 
+@CrossOrigin
+@RestController
 public class CourseController {
 
     @Autowired
@@ -49,7 +51,7 @@ public class CourseController {
         String courseType = resource.getCourseType();
         int coursePoint = resource.getCoursePoint();
 
-        CourseService.updateCourses(courseCord,courseName,courseType,coursePoint);
+        courseService.updateCourses(courseCord,courseName,courseType,coursePoint);
 
         return "{}";
     }

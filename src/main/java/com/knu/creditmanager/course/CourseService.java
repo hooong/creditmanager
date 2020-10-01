@@ -18,22 +18,22 @@ public class CourseService {
     }
 
     public List<Course> getCourses(){
-        List<Course> course = CourseRepository.findAll();
+        List<Course> course = courseRepository.findAll();
         return course;
     }
 
     public Course getCourse(Long courseCord){
-        Course course = CourseRepository.findByCourseCord(courseCord).orElse(null);
+        Course course = courseRepository.findByCourseCord(courseCord).orElse(null);
         return course;
     }
 
     public Course addCourse(Course course) {
-        return CourseRepository.save(course);
+        return courseRepository.save(course);
     }
 
     @Transactional
     public Course updateCourses(Long courseCord, String courseName, String courseType, int coursePoint) {
-        Course course = CourseRepository.findByCourseCord(courseCord).orElse(null);
+        Course course = courseRepository.findByCourseCord(courseCord).orElse(null);
 
         course.updateInformation(courseName,courseType,coursePoint);
         return course;

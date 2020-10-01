@@ -36,7 +36,7 @@ class CourseServiceTest {
                 .courseType("전공필수")
                 .build();
         courses.add(course);
-        given(CourseRepository.findAll()).willReturn(courses);
+        given(courseRepository.findAll()).willReturn(courses);
         given(courseRepository.findById(411394L)).willReturn(Optional.of(course));
     }
 
