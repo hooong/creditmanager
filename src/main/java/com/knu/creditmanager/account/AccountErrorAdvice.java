@@ -11,23 +11,23 @@ import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExcep
 public class AccountErrorAdvice extends ResponseEntityExceptionHandler {
 
     @ResponseBody
-    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(StudentIdExistedException.class)
     public String handleExisted() {
-        return "{}";
+        return "{\"error\": \"이미 존재하는 학번입니다.\"}";
     }
 
     @ResponseBody
-    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(StudentIdNotExistedException.class)
     public String handleNotExisted() {
-        return "{}";
+        return "{\"error\": \"존재하지 않는 학번입니다.\"}";
     }
 
     @ResponseBody
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(PasswordWrongException.class)
     public String handleWrongPassword() {
-        return "{}";
+        return "{\"error\": \"비밀번호가 틀립니다.\"}";
     }
 }

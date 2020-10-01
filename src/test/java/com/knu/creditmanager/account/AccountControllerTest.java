@@ -1,110 +1,132 @@
 package com.knu.creditmanager.account;
 
+import com.knu.creditmanager.department.DepartmentService;
 import com.knu.creditmanager.domain.Account;
-import com.knu.creditmanager.exception.StudentIdExistedException;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import com.knu.creditmanager.domain.Department;
+import lombok.RequiredArgsConstructor;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.hamcrest.Matchers.containsString;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.BDDMockito.given;
-import static org.mockito.Mockito.verify;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@RunWith(SpringRunner.class)
-@WebMvcTest(AccountController.class)
-public class AccountControllerTest {
-
-    @MockBean
-    private AccountService accountService;
+@SpringBootTest
+@AutoConfigureMockMvc
+class AccountControllerTest {
 
     @Autowired
-    MockMvc mockMvc;
+    MockMvc mvc;
 
-    @Test
-    public void getAllAccounts() throws Exception {
-        List<Account> accountList = new ArrayList<>();
-        accountList.add(Account.builder()
-                .id(1L)
-                .studentId("201513501")
-                .name("hong").build());
+    @Autowired AccountService accountService;
+    @Autowired AccountRepository accountRepository;
+    @Autowired DepartmentService departmentService;
 
-        given(accountService.getAllAccounts()).willReturn(accountList);
+    @BeforeEach
+    void beforeEach() {
+        Department department = Department.builder()
+                .name("컴퓨터과학").build();
+        departmentService.create(department);
 
-        mockMvc.perform(get("/api/accounts"))
-                .andExpect(status().isOk())
-                .andExpect(content().string(containsString("hong")));
+        RegisterAccountDto account = new RegisterAccountDto();
+        account.setName("홍석준");
+        account.setPassword("1234");
+        account.setMajor("컴퓨터과학");
+        account.setSemester("4학년 2학기");
+        account.setStudentId("201513501");
+        accountService.registerAccount(account);
+    }
+
+    @AfterEach
+    void afterEach() {
+        accountRepository.deleteAll();
     }
 
     @Test
-    public void getAccount() throws Exception {
-        Account account = Account.builder()
-                .id(1L)
-                .studentId("201513501")
-                .name("hong").build();
-
-        given(accountService.getAccount(1L)).willReturn(account);
-
-        mockMvc.perform(get("/api/accounts/1"))
+    @DisplayName("모든 회원 조회")
+    void getAllAccountsTest() throws Exception {
+        //When
+        mvc.perform(get("/api/accounts"))
                 .andExpect(status().isOk())
-                .andExpect(content().string(containsString("hong")));
+                .andExpect(content().string(containsString("201513501")));
     }
 
     @Test
-    public void signUpWithValidData() throws Exception {
-        given(accountService.registerAccount(any())).will(invocation -> {
-            RegisterAccountDto account = invocation.getArgument(0);
-            return Account.builder()
-                    .id(1L)
-                    .studentId("1234")
-                    .name("seokjun")
-                    .password("1234").build();
-        });
+    @DisplayName("특정 id 회원 조회")
+    void getAccountTest() throws Exception {
+        mvc.perform(get("/api/accounts/201513501"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("201513501")));
+    }
 
-        mockMvc.perform(post("/api/accounts")
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content("{ \"name\": \"seokjun\", \"studentId\" : \"1234\", \"password\":\"1234\"}"))
-                .andDo(print())
+    @Test
+    @DisplayName("회원 가입 - 정상적인 입력")
+    void signupTest() throws Exception {
+        //When
+        mvc.perform(post("/api/accounts")
+            .contentType(MediaType.APPLICATION_JSON)
+            .content("{\"studentId\": \"201511111\", " +
+                    "\"password\": \"1234\", " +
+                    "\"name\": \"박지원\", " +
+                    "\"major\": \"컴퓨터과학\", " +
+                    "\"semester\":\"4학년 2학기\"}"))
                 .andExpect(status().isCreated())
                 .andExpect(content().string(containsString("Success")));
-        verify(accountService).registerAccount(any());
+
+        // Then
+        List<Account> accountList = accountService.getAllAccounts();
+        assertEquals(accountList.size(), 2);
     }
 
     @Test
-    public void signUpWithExistence() throws Exception {
-        given(accountService.registerAccount(any())).willThrow(new StudentIdExistedException("1234"));
+    @DisplayName("회원 가입 - 이미 가입된 학번 입력")
+    void signupWithExsitedStudentIdTest() throws Exception {
+        //When
+        mvc.perform(post("/api/accounts")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"studentId\": \"201513501\", " +
+                        "\"password\": \"1234\", " +
+                        "\"name\": \"홍석준\", " +
+                        "\"major\": \"컴퓨터과학\", " +
+                        "\"semester\":\"4학년 2학기\"}"))
+                .andExpect(status().isBadRequest())
+                .andExpect(content().string(containsString("error")));
 
-        mockMvc.perform(post("/api/accounts")
-                .contentType(MediaType.APPLICATION_JSON_UTF8)
-                .content("{ \"name\": \"seokjun\", \"studentId\" : \"1111\"}"))
-                .andExpect(status().isNotFound());
+        // Then
+        List<Account> accountList = accountService.getAllAccounts();
+        assertEquals(1, accountList.size());
     }
 
     @Test
-    public void deleteAccount() throws Exception {
-        Account account = Account.builder()
-                .id(1L)
-                .studentId("201513501")
-                .name("hong").build();
-
-        given(accountService.delete(1L)).willReturn(account);
-
-        mockMvc.perform(delete("/api/accounts/1"))
+    @DisplayName("회원 탈퇴 - 존재하는 학번")
+    void deleteTest() throws Exception {
+        // When
+        mvc.perform(delete("/api/accounts/201513501"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Success")));
+
+        // Then
+        Account account = accountService.getAccount("201513501");
+        assertEquals(true, account.isDeleted());
     }
+
+    @Test
+    @DisplayName("회원 탈퇴 - 존재하지 않는 학번")
+    void deleteWithNotExistedTest() throws Exception {
+        mvc.perform(delete("/api/accounts/201511111"))
+                .andExpect(status().isBadRequest())
+                .andExpect(content().string(containsString("error")));
+    }
+
 }

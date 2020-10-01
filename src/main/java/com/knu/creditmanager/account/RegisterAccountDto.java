@@ -1,5 +1,6 @@
 package com.knu.creditmanager.account;
 
+import lombok.Builder;
 import lombok.Data;
 
 @Data

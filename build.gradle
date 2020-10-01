@@ -43,4 +43,6 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.5.0'
     testAnnotationProcessor 'org.projectlombok:lombok'
     testCompileOnly 'org.projectlombok:lombok'
+
+    compile group: 'org.json', name: 'json', version: '20200518'
 }

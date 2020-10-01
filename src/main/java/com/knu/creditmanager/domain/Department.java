@@ -14,6 +14,11 @@ import javax.persistence.Id;
 @RequiredArgsConstructor
 public class Department {
 
+    public Department(String name, String link) {
+        this.name = name;
+        this.link = link;
+    }
+
     @Id @GeneratedValue
     private Long id;
 

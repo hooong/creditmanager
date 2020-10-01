@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -15,6 +16,7 @@ import java.util.List;
 @RequestMapping(value = "/api/accounts")
 @RestController
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class AccountController {
 
     private final AccountService accountService;
@@ -24,13 +26,14 @@ public class AccountController {
         return accountService.getAllAccounts();
     }
 
-    @GetMapping("/{id}")
-    public Account getAccount(@PathVariable Long id) {
-        return accountService.getAccount(id);
+    @GetMapping("/{studentId}")
+    public Account getAccount(@PathVariable String studentId) {
+        return accountService.getAccount(studentId);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
+    @Transactional
     public ResponseEntity<?> signUp(@RequestBody RegisterAccountDto resource) throws URISyntaxException {
 
         Account account = accountService.registerAccount(resource);
@@ -39,9 +42,10 @@ public class AccountController {
         return ResponseEntity.created(location).body("{\"message\": \"Success Created\"}");
     }
 
-    @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteAccount(@PathVariable Long id) throws URISyntaxException {
-        Account account = accountService.delete(id);
+    @DeleteMapping("/{studentId}")
+    @Transactional
+    public ResponseEntity<?> deleteAccount(@PathVariable String studentId) throws URISyntaxException {
+        Account account = accountService.delete(studentId);
 
         URI location = new URI("/api/accounts/" + account.getId());
         return ResponseEntity.ok().body("{\"message\" : \"Success Delete\"}");
