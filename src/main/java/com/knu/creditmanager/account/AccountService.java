@@ -31,8 +31,8 @@ public class AccountService {
     }
 
     @Transactional(readOnly = true)
-    public Account getAccount(Long id) {
-        Account account = accountRepository.findById(id).orElseThrow(() -> new RuntimeException("아이디가 존재하지 않음."));
+    public Account getAccount(String studentId) {
+        Account account = accountRepository.findByStudentId(studentId).orElseThrow(() -> new StudentIdNotExistedException());
 
         return account;
     }
@@ -67,8 +67,8 @@ public class AccountService {
     }
 
     @Transactional
-    public Account delete(Long id) {
-        Account account = accountRepository.findById(id).orElseThrow(
+    public Account delete(String studentId) {
+        Account account = accountRepository.findByStudentId(studentId).orElseThrow(
                 () -> new StudentIdNotExistedException());
 
         account.setDeleted(true);

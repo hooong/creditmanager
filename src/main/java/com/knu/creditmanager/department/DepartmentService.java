@@ -21,6 +21,15 @@ public class DepartmentService {
         return departmentRepository.findAllByName(name).orElseThrow(() -> new DepartmentNotExistedException(name));
     }
 
+    public void create(Department department) {
+        Department existed = departmentRepository.findAllByName(department.getName())
+                .orElse(null);
+
+        if (existed == null) {
+            departmentRepository.save(department);
+        }
+    }
+
     public void createAll(List<Department> departmentList) {
         for (Department department: departmentList) {
             Department existed = departmentRepository.findAllByName(department.getName())

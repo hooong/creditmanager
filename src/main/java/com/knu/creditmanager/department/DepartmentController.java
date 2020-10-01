@@ -4,6 +4,7 @@ import com.knu.creditmanager.domain.Department;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
@@ -12,6 +13,7 @@ import java.util.List;
 @RestController
 @RequestMapping(value = "/api/departments")
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class DepartmentController {
 
     private final DepartmentService departmentService;
@@ -24,6 +26,7 @@ public class DepartmentController {
 
     // 배열로 입력 받은 학과 모두 입력
     @PostMapping
+    @Transactional
     public ResponseEntity<?> createDepartments(
             @RequestBody List<Department> departmentList) {
         departmentService.createAll(departmentList);
