@@ -1,7 +1,5 @@
 package com.knu.creditmanager.department;
 
-import com.knu.creditmanager.domain.Department;
-import org.junit.After;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

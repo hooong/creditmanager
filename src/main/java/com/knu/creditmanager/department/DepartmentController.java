@@ -1,16 +1,13 @@
 package com.knu.creditmanager.department;
 
-import com.knu.creditmanager.domain.Department;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequestMapping(value = "/api/departments")

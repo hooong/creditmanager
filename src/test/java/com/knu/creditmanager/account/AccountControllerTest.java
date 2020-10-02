@@ -1,17 +1,13 @@
 package com.knu.creditmanager.account;
 
 import com.knu.creditmanager.department.DepartmentService;
-import com.knu.creditmanager.domain.Account;
-import com.knu.creditmanager.domain.Department;
-import lombok.RequiredArgsConstructor;
+import com.knu.creditmanager.department.Department;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 

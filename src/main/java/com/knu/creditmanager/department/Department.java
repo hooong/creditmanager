@@ -1,4 +1,4 @@
-package com.knu.creditmanager.domain;
+package com.knu.creditmanager.department;
 
 import lombok.*;
 

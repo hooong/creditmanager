@@ -5,8 +5,13 @@ spring:
     password:
     driver-class-name: org.h2.Driver
   jpa:
-    show-sql: true
-    ddl-auto: create
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+    generate-ddl: false
 
 jwt:
   secret: 12345678901234567890123456789012

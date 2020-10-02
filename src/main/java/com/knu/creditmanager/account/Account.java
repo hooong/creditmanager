@@ -1,12 +1,10 @@
-package com.knu.creditmanager.domain;
+package com.knu.creditmanager.account;
 
-import com.fasterxml.jackson.annotation.JsonInclude;
+import com.knu.creditmanager.department.Department;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.persistence.*;
-import java.time.LocalDate;
 
 @Entity
 @Getter

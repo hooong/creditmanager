@@ -1,7 +1,7 @@
 package com.knu.creditmanager.session;
 
 import com.knu.creditmanager.account.AccountService;
-import com.knu.creditmanager.domain.Account;
+import com.knu.creditmanager.account.Account;
 import com.knu.creditmanager.util.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

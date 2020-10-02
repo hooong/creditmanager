@@ -1,13 +1,11 @@
 package com.knu.creditmanager.account;
 
 import com.knu.creditmanager.department.DepartmentService;
-import com.knu.creditmanager.domain.Account;
-import com.knu.creditmanager.domain.Department;
+import com.knu.creditmanager.department.Department;
 import com.knu.creditmanager.exception.PasswordWrongException;
 import com.knu.creditmanager.exception.StudentIdExistedException;
 import com.knu.creditmanager.exception.StudentIdNotExistedException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
