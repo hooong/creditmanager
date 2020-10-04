@@ -11,7 +11,7 @@ import java.net.URISyntaxException;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/api/Courses")
+@RequestMapping(value = "/api/courses")
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class CourseController {

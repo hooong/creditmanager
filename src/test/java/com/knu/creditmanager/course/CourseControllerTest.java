@@ -52,11 +52,11 @@ class CourseControllerTest {
                 .andExpect(content().string(containsString("컴퓨터구조")));
     }
 
-    @Test
-    @DisplayName("수업 하나 생성 - 정상 입력")
-    void createCourse() throws Exception{
-        mvc.perform()
-    }
+//    @Test
+//    @DisplayName("수업 하나 생성 - 정상 입력")
+//    void createCourse() throws Exception{
+//        mvc.perform()
+//    }
 
 
 }
