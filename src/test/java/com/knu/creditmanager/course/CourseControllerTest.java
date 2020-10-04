@@ -8,11 +8,13 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
 import static org.hamcrest.core.StringContains.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -52,11 +54,14 @@ class CourseControllerTest {
                 .andExpect(content().string(containsString("컴퓨터구조")));
     }
 
-    @Test
-    @DisplayName("수업 하나 생성 - 정상 입력")
-    void createCourse() throws Exception{
-        mvc.perform()
-    }
+   // @Test
+    //@DisplayName("수업 하나 생성 - 정상 입력")
+    //void createCourse() throws Exception{
+     //   mvc.perform()(post("/api/courses")
+       //     .contentType(MediaType.APPLICATION_JSON)
+         //   .content({\"name\": \"컴퓨터정보통신\"}"))
+
+    //}
 
 
 }
