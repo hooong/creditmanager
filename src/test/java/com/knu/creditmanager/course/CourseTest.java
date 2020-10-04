@@ -1,7 +1,7 @@
 package com.knu.creditmanager.course;
 
 import com.knu.creditmanager.domain.Course;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.core.Is.is;
 import static org.junit.Assert.assertThat;

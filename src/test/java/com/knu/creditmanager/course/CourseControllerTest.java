@@ -35,7 +35,7 @@ class CourseControllerTest {
     @AfterEach
     void afterEach(){courseRepository.deleteAll();}
 
-    @org.junit.jupiter.api.Test
+    @Test
     @DisplayName("모든 수업 조회")
     void getCourse() throws Exception{
         mvc.perform(get("/api/courses"))
