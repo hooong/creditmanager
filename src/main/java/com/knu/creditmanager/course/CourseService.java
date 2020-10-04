@@ -1,41 +1,48 @@
 package com.knu.creditmanager.course;
 
 import com.knu.creditmanager.domain.Course;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.knu.creditmanager.exception.CourseExistedException;
+import com.knu.creditmanager.exception.CourseNotExistedException;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class CourseService {
 
-    @Autowired
-    CourseRepository courseRepository;
 
-    public CourseService(CourseRepository courseRepository) {
-        this.courseRepository = courseRepository;
+    private final CourseRepository courseRepository;
+
+    public List<Course> getAllCourse() {
+        return courseRepository.findAll();
     }
 
-    public List<Course> getCourses(){
-        List<Course> course = courseRepository.findAll();
-        return course;
+    public Course getCourse(Long courseCord) {
+        return courseRepository.findByCourseCord(courseCord).orElseThrow(() -> new CourseNotExistedException(courseCord));
     }
 
-    public Course getCourse(Long courseCord){
-        Course course = courseRepository.findByCourseCord(courseCord).orElse(null);
-        return course;
-    }
+    public Course create(Course course) {
+        Course existed = courseRepository.findByCourseCord(course.getCourseCord())
+                .orElse(null);
 
-    public Course addCourse(Course course) {
+        if (existed != null) {
+            throw new CourseExistedException(course.getCourseCord());
+        }
+
         return courseRepository.save(course);
     }
 
-    @Transactional
-    public Course updateCourses(Long courseCord, String courseName, String courseType, int coursePoint) {
-        Course course = courseRepository.findByCourseCord(courseCord).orElse(null);
+    public void createAll(List<Course> courseList){
+        for(Course course: courseList){
+            Course existed = courseRepository.findByCourseCord(course.getCourseCord())
+                    .orElse(null);
 
-        course.updateInformation(courseName,courseType,coursePoint);
-        return course;
+            if(existed == null){
+                courseRepository.save(course);
+            }
+        }
     }
 }
+

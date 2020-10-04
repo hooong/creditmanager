@@ -1,58 +1,51 @@
 package com.knu.creditmanager.course;
 
 import com.knu.creditmanager.domain.Course;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 
-@CrossOrigin
 @RestController
+@RequestMapping(value = "/api/Courses")
+@RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class CourseController {
 
-    @Autowired
-    private CourseService courseService;
 
-    @GetMapping("/Courses")
-    public List<Course> list(){
-        List<Course> courses = courseService.getCourses();
-        return courses;
+    private final CourseService courseService;
+
+    @GetMapping
+    public List<Course> allCourses(){
+        return courseService.getAllCourse();
     }
 
-    @GetMapping("/Courses/{id}")
-    public Course detail(@PathVariable("id") Long courseCord){
-        Course course = courseService.getCourse(courseCord);
-
-        return course;
+    @GetMapping("/{courseCord}")
+    public Course Course(@PathVariable Long courseCord){
+        return courseService.getCourse(courseCord);
     }
 
-    @PostMapping("/Courses")
-    public ResponseEntity<?> create(@Valid @RequestBody Course resource) throws URISyntaxException{
+    //수업 하나 생성
+    @PostMapping
+    @Transactional
+    public ResponseEntity<?> createCourse(@RequestBody Course resource) throws URISyntaxException{        Course course = courseService.create(resource);
 
-        Course course = courseService.addCourse(
-                Course.builder()
-                .courseCord(resource.getCourseCord())
-                .courseName(resource.getCourseName())
-                .courseType(resource.getCourseType())
-                .coursePoint(resource.getCoursePoint())
-                .build());
-        URI location = new URI("/Courses/" + course.getCourseCord());
-        return ResponseEntity.created(location).body("{}");
+        URI location = new URI("/api/Courses/" + course.getCourseCord());
+        return ResponseEntity.created(location).body("{\"message\" : \"Success Create\"}");
     }
 
-    @PatchMapping("/Courses/{id}")
-    public String update(@PathVariable("id") Long courseCord,
-                         @Valid @RequestBody Course resource){
-        String courseName = resource.getCourseName();
-        String courseType = resource.getCourseType();
-        int coursePoint = resource.getCoursePoint();
+    //배열로 입력 받은 수업 모두 생성
+    @PostMapping("/all2")
+    @Transactional
+    public ResponseEntity<?> createCourses(
+            @RequestBody List<Course> courseList){
+        courseService.createAll(courseList);
 
-        courseService.updateCourses(courseCord,courseName,courseType,coursePoint);
-
-        return "{}";
+        return ResponseEntity.ok().body("{\"message\" : \"Success Create (Without Overlap Name)\"}");
     }
+
 }

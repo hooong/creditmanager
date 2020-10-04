@@ -1,36 +1,36 @@
 package com.knu.creditmanager.domain;
 
 import lombok.*;
-import org.springframework.data.annotation.Id;
 
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.validation.constraints.NotEmpty;
+import javax.persistence.Id;
 
+@Entity
 @Getter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@RequiredArgsConstructor
 public class Course {
+
+    public Course(Long courseCord,String courseName){
+        this.courseCord = courseCord;
+        this.courseName = courseName;
+    }
 
     @Id
     @GeneratedValue
-    @Setter
     private Long courseCord;
 
-    @NotEmpty
+    @NonNull
     private String courseName;
 
-    @NotEmpty
+    @NonNull
     private String courseType;
 
-    @NotEmpty
+    @NonNull
     private int coursePoint;
 
-
-    public void updateInformation(String courseName,String courseType, int coursePoint) {
-        this.courseName = courseName;
-        this.courseType = courseType;
-        this.coursePoint = coursePoint;
-    }
 }
