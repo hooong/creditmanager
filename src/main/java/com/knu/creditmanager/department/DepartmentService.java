@@ -18,11 +18,11 @@ public class DepartmentService {
     }
 
     public Department getDepartment(String name) {
-        return departmentRepository.findAllByName(name).orElseThrow(() -> new DepartmentNotExistedException(name));
+        return departmentRepository.findByName(name).orElseThrow(() -> new DepartmentNotExistedException(name));
     }
 
     public Department create(Department department) {
-        Department existed = departmentRepository.findAllByName(department.getName())
+        Department existed = departmentRepository.findByName(department.getName())
                 .orElse(null);
 
         if (existed != null) {
@@ -34,7 +34,7 @@ public class DepartmentService {
 
     public void createAll(List<Department> departmentList) {
         for (Department department: departmentList) {
-            Department existed = departmentRepository.findAllByName(department.getName())
+            Department existed = departmentRepository.findByName(department.getName())
                     .orElse(null);
 
             if (existed == null) {

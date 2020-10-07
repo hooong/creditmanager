@@ -32,18 +32,17 @@ public class Account {
     private Integer uniYear;
 
     @NonNull
-    private Semester semester;    // TODO: 학기 및 학년을 어떻게 저장할지?
+    private Semester semester;
 
     @NonNull
     @ManyToOne
-    @JoinColumn(name = "department_id", nullable = false)
+    @JoinColumn(name="department_id")
     private Department major;       // 학과
 
     // 수업
     //    @Transient
     //    @JsonInclude(JsonInclude.Include.NON_NULL)
     //    private List<Course> courseList;
-
 
     private Double grade;       // 학점
 

@@ -26,17 +26,17 @@ public class MyCourseController {
     public MyCourse MyCourse(@PathVariable Long courseCord) {return myCourseService.getCourse(courseCord);}
 
     //수강하나신청
-    @PostMapping
-    @Transactional
-    public ResponseEntity<?> createMyCourse(@RequestBody MyCourse resource) throws URISyntaxException{
-        MyCourse myCourse = myCourseService.create(resource);
-
-        URI location = new URI("/api/mycourses" + myCourse.getCourseCord());
-        return ResponseEntity.created(location).body("{\"message\" : \"Success Create\"}");
-    }
+//    @PostMapping
+//    @Transactional
+//    public ResponseEntity<?> createMyCourse(@RequestBody MyCourse resource) throws URISyntaxException{
+//        MyCourse myCourse = myCourseService.create(resource);
+//
+//        URI location = new URI("/api/mycourses" + myCourse.getCourseCord());
+//        return ResponseEntity.created(location).body("{\"message\" : \"Success Create\"}");
+//    }
 
     //배열로 입력받은 수업 모두 생성
-    @PostMapping("/all3")
+    @PostMapping
     @Transactional
     public ResponseEntity<?> createMyCourses(
             @RequestBody List<MyCourse> myCourseList){

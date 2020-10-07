@@ -34,7 +34,7 @@ class AccountControllerTest {
 
     @BeforeEach
     void beforeEach() {
-        Department department = Department.builder().name("컴퓨터과학").link("").build();
+        Department department = new Department("컴퓨터과학", "");
         departmentService.create(department);
 
         RegisterAccountDto account = new RegisterAccountDto();
@@ -49,8 +49,8 @@ class AccountControllerTest {
 
     @AfterEach
     void afterEach() {
-        departmentRepository.deleteAll();
         accountRepository.deleteAll();
+        departmentRepository.deleteAll();
     }
 
     @Test

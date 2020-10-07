@@ -18,9 +18,7 @@ import java.util.List;
 public class AccountService {
 
     private final AccountRepository accountRepository;
-
     private final DepartmentService departmentService;
-
     private final PasswordEncoder passwordEncoder;
 
     @Transactional(readOnly = true)
@@ -36,7 +34,6 @@ public class AccountService {
     }
 
     public Account registerAccount(RegisterAccountDto registerAccountDto) {
-        // TODO: Dto 만들고 회원가입 폼에서 받아오는 값 설정
         if(checkExistence(registerAccountDto.getStudentId())) {
             throw new StudentIdExistedException(registerAccountDto.getStudentId());
        }
