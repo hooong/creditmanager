@@ -22,7 +22,6 @@ public class Account {
     private String name;
 
     @NonNull
-    @Column(unique = true)
     private String studentId;
 
     @NonNull
@@ -32,7 +31,7 @@ public class Account {
     private String semester;    // TODO: 학기 및 학년을 어떻게 저장할지?
 
     @NonNull
-    @OneToOne
+    @ManyToOne
     @JoinColumn(name = "department_id", nullable = false)
     private Department major;       // 학과
 
