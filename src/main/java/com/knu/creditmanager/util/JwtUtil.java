@@ -19,7 +19,7 @@ public class JwtUtil {
                 .claim("name", name);
 
         return builder
-                .signWith(key, SignatureAlgorithm.ES256)
+                .signWith(key, SignatureAlgorithm.HS256)
                 .compact();
     }
 
