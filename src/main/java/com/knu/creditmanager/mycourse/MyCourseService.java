@@ -11,7 +11,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class MyCourseService {
 
-    private  final MyCourseRepository myCourseRepository;
+    private final MyCourseRepository myCourseRepository;
 
     public List<MyCourse> getAllMyCourse(){
         return myCourseRepository.findAll();

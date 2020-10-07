@@ -1,6 +1,6 @@
 package com.knu.creditmanager.course;
 
-import com.knu.creditmanager.domain.Course;
+import com.knu.creditmanager.domain.CourseSession;
 import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.core.Is.is;
@@ -11,12 +11,7 @@ public class CourseTest {
     @Test
     public void creation(){
 
-        Course course = Course.builder()
-                .courseName("컴퓨터구조")
-                .courseCord(411394L)
-                .coursePoint(3)
-                .courseType("전공필수")
-                .build();
+        CourseSession course = new CourseSession(411394L, "컴퓨터구조", "전공필수", 3);
 
         assertThat(course.getCourseCord(),is(411394L));
         assertThat(course.getCourseName(),is("컴퓨터구조"));

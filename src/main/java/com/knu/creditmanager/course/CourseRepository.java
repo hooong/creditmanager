@@ -1,15 +1,14 @@
 package com.knu.creditmanager.course;
 
-import com.knu.creditmanager.domain.Course;
+import com.knu.creditmanager.domain.CourseSession;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface CourseRepository extends JpaRepository<Course, Long> {
+public interface CourseRepository extends JpaRepository<CourseSession, Long> {
 
-    Optional<Course> findByCourseCord(Long courseCord);
+    Optional<CourseSession> findByCourseCord(Long courseCord);
 
 }

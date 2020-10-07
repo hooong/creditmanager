@@ -1,7 +1,9 @@
 package com.knu.creditmanager.account;
 
+import com.knu.creditmanager.department.DepartmentRepository;
 import com.knu.creditmanager.department.DepartmentService;
 import com.knu.creditmanager.department.Department;
+import com.knu.creditmanager.grade.Semester;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -28,24 +30,26 @@ class AccountControllerTest {
     @Autowired AccountService accountService;
     @Autowired AccountRepository accountRepository;
     @Autowired DepartmentService departmentService;
+    @Autowired DepartmentRepository departmentRepository;
 
     @BeforeEach
     void beforeEach() {
-        Department department = Department.builder()
-                .name("컴퓨터과학").build();
+        Department department = Department.builder().name("컴퓨터과학").link("").build();
         departmentService.create(department);
 
         RegisterAccountDto account = new RegisterAccountDto();
         account.setName("홍석준");
         account.setPassword("1234");
         account.setMajor("컴퓨터과학");
-        account.setSemester("4학년 2학기");
+        account.setUniYear(4);
+        account.setSemester(Semester.FALL);
         account.setStudentId("201513501");
         accountService.registerAccount(account);
     }
 
     @AfterEach
     void afterEach() {
+        departmentRepository.deleteAll();
         accountRepository.deleteAll();
     }
 
@@ -76,7 +80,8 @@ class AccountControllerTest {
                     "\"password\": \"1234\", " +
                     "\"name\": \"박지원\", " +
                     "\"major\": \"컴퓨터과학\", " +
-                    "\"semester\":\"4학년 2학기\"}"))
+                    "\"uniYear\": 4, " +
+                    "\"semester\":\"FALL\"}"))
                 .andExpect(status().isCreated())
                 .andExpect(content().string(containsString("Success")));
 
@@ -95,7 +100,8 @@ class AccountControllerTest {
                         "\"password\": \"1234\", " +
                         "\"name\": \"홍석준\", " +
                         "\"major\": \"컴퓨터과학\", " +
-                        "\"semester\":\"4학년 2학기\"}"))
+                        "\"uniYear\": 4, " +
+                        "\"semester\":\"FALL\"}"))
                 .andExpect(status().isBadRequest())
                 .andExpect(content().string(containsString("error")));
 

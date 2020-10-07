@@ -1,6 +1,6 @@
 package com.knu.creditmanager.course;
 
-import com.knu.creditmanager.domain.Course;
+import com.knu.creditmanager.domain.CourseSession;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -33,7 +33,7 @@ class CourseControllerTest {
 
     @BeforeEach
     void beforeEach(){
-        Course course = new Course(411394L,"컴퓨터구조");
+        CourseSession course = new CourseSession(411394L,"컴퓨터구조","전필",3);
         courseRepository.save(course);
     }
 
@@ -67,7 +67,7 @@ class CourseControllerTest {
                 .andExpect(status().isCreated())
                 .andExpect(content().string(containsString("Success")));
         //Then
-        List<Course> courseList = courseRepository.findAll();
+        List<CourseSession> courseList = courseRepository.findAll();
         assertEquals(2,courseList.size());
         assertEquals(411394L,courseList.get(0).getCourseCord());
         assertEquals(411395L,courseList.get(1).getCourseCord());
@@ -84,7 +84,7 @@ class CourseControllerTest {
                 .andExpect(content().string(containsString("error")));
 
         //Then
-        List<Course> courseList =courseRepository.findAll();
+        List<CourseSession> courseList =courseRepository.findAll();
         assertEquals(1,courseList.size());
     }
 
@@ -102,7 +102,7 @@ class CourseControllerTest {
                 .andExpect(content().string(containsString("Success")));
 
         //Then
-        List<Course> courseList = courseRepository.findAll();
+        List<CourseSession> courseList = courseRepository.findAll();
         assertEquals(3, courseList.size());
         assertEquals(411394L,courseList.get(0).getCourseCord());
         assertEquals(411395L,courseList.get(1).getCourseCord());

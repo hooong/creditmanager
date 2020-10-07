@@ -25,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-public class MyCourseTest {
+public class MyCourseControllerTest {
 
     @Autowired
     MockMvc mvc;
@@ -60,7 +60,7 @@ public class MyCourseTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"courseCord\": 411395}"))
                 .andExpect(status().isCreated())
-                .andExpect(content().string((containsString("Success")));
+                .andExpect(content().string((containsString("Success"))));
         //Then
         List<MyCourse> myCourseList = myCourseRepository.findAll();
         assertEquals(2,myCourseList.size());
@@ -86,7 +86,7 @@ public class MyCourseTest {
     @DisplayName("수강 내역 여러개 생성 - 정상 입력")
     void createMyCourses() throws Exception{
         //When
-        mvc.perform(post("/api/courses/all3")
+        mvc.perform(post("/api/mycourses/all3")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("[" +
                         "{\"courseCord\": 411395}," +
