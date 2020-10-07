@@ -8,11 +8,16 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.util.List;
+
 import static org.hamcrest.core.StringContains.containsString;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -52,11 +57,57 @@ class CourseControllerTest {
                 .andExpect(content().string(containsString("컴퓨터구조")));
     }
 
-//    @Test
-//    @DisplayName("수업 하나 생성 - 정상 입력")
-//    void createCourse() throws Exception{
-//        mvc.perform()
-//    }
+    @Test
+    @DisplayName("수업 하나 생성 - 정상 입력")
+    void createCourse() throws Exception{
+        //When
+        mvc.perform(post("/api/courses")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("\"id\":411394"))
+                .andExpect(status().isCreated())
+                .andExpect(content().string(containsString("Success")));
+        //Then
+        List<Course> courseList = courseRepository.findAll();
+        assertEquals(2,courseList.size());
+        assertEquals(411394L,courseList.get(0).getCourseCord());
+        assertEquals(411395L,courseList.get(1).getCourseCord());
+    }
+
+    @Test
+    @DisplayName("수업 하나 생성 - 이미 있는 수업 입력")
+    void createCourseWithValid() throws Exception{
+        //When
+        mvc.perform(post("/api/courses")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("\"id\":411394"))
+                .andExpect(status().isBadRequest())
+                .andExpect(content().string(containsString("error")));
+
+        //Then
+        List<Course> courseList =courseRepository.findAll();
+        assertEquals(1,courseList.size());
+    }
+
+    @Test
+    @DisplayName("수업 하나 생성 - 정상 입력")
+    void createCourses() throws Exception{
+        //When
+        mvc.perform(post("/api/courses")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("[" +
+                        "{\"courseCord\": 411394}," +
+                        "{\"courseCord\": 411395}" +
+                        "]"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("Success")));
+
+        //Then
+        List<Course> courseList = courseRepository.findAll();
+        assertEquals(3, courseList.size());
+        assertEquals(411394L,courseList.get(0).getCourseCord());
+        assertEquals(411396L,courseList.get(1).getCourseCord());
+        assertEquals(411395L,courseList.get(2).getCourseCord());
+    }
 
 
 }
