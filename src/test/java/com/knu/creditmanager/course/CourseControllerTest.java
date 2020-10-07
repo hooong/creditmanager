@@ -63,7 +63,7 @@ class CourseControllerTest {
         //When
         mvc.perform(post("/api/courses")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("\"id\":411394"))
+                .content("{\"courseCord\": 411395}"))
                 .andExpect(status().isCreated())
                 .andExpect(content().string(containsString("Success")));
         //Then
@@ -79,7 +79,7 @@ class CourseControllerTest {
         //When
         mvc.perform(post("/api/courses")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("\"id\":411394"))
+                .content("{\"courseCord\": 411394}"))
                 .andExpect(status().isBadRequest())
                 .andExpect(content().string(containsString("error")));
 
@@ -89,14 +89,14 @@ class CourseControllerTest {
     }
 
     @Test
-    @DisplayName("수업 하나 생성 - 정상 입력")
+    @DisplayName("수업 여러개 생성 - 정상 입력")
     void createCourses() throws Exception{
         //When
-        mvc.perform(post("/api/courses")
+        mvc.perform(post("/api/courses/all2")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("[" +
-                        "{\"courseCord\": 411394}," +
-                        "{\"courseCord\": 411395}" +
+                        "{\"courseCord\": 411395}," +
+                        "{\"courseCord\": 411396}" +
                         "]"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Success")));
@@ -105,8 +105,8 @@ class CourseControllerTest {
         List<Course> courseList = courseRepository.findAll();
         assertEquals(3, courseList.size());
         assertEquals(411394L,courseList.get(0).getCourseCord());
-        assertEquals(411396L,courseList.get(1).getCourseCord());
-        assertEquals(411395L,courseList.get(2).getCourseCord());
+        assertEquals(411395L,courseList.get(1).getCourseCord());
+        assertEquals(411396L,courseList.get(2).getCourseCord());
     }
 
 

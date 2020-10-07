@@ -22,6 +22,9 @@ public class Course {
 
     @Id
     @GeneratedValue
+    private Long id;
+
+    @NonNull
     private Long courseCord;
 
     @NonNull
