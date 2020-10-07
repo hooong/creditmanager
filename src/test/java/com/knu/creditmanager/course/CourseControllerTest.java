@@ -50,9 +50,9 @@ class CourseControllerTest {
     }
 
     @Test
-    @DisplayName("모든 수업 조회")
+    @DisplayName("수업 하나 조회")
     void getCourses() throws Exception{
-        mvc.perform(get("/api/courses"))
+        mvc.perform(get("/api/courses/411394"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("컴퓨터구조")));
     }

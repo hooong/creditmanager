@@ -1,7 +1,14 @@
 package com.knu.creditmanager.mycourse;
 
+import com.knu.creditmanager.account.AccountRepository;
+import com.knu.creditmanager.account.AccountService;
+import com.knu.creditmanager.account.RegisterAccountDto;
 import com.knu.creditmanager.course.CourseRepository;
 import com.knu.creditmanager.course.CourseService;
+import com.knu.creditmanager.department.Department;
+import com.knu.creditmanager.department.DepartmentRepository;
+import com.knu.creditmanager.department.DepartmentService;
+import com.knu.creditmanager.domain.CourseSession;
 import com.knu.creditmanager.grade.Grade;
 import com.knu.creditmanager.grade.Semester;
 import org.junit.jupiter.api.AfterEach;
@@ -30,22 +37,52 @@ public class MyCourseControllerTest {
     @Autowired
     MockMvc mvc;
 
-    @Autowired private CourseService courseService;
-    @Autowired private MyCourseRepository myCourseRepository;
+    @Autowired
+    private CourseService courseService;
+    @Autowired
+    private MyCourseRepository myCourseRepository;
+    @Autowired CourseRepository courseRepository;
+    @Autowired private AccountService accountService;
+    @Autowired private AccountRepository accountRepository;
+    @Autowired private DepartmentService departmentService;
+    @Autowired private DepartmentRepository departmentRepository;
 
     @BeforeEach
-    void beforeEach(){
-        MyCourse myCourse = new MyCourse(411394L,"컴퓨터구조","전공선택",3, Grade.AP,3, Semester.SPRING);
-        myCourseRepository.save(myCourse);
+    void beforeEach() {
+        Department department = new Department("컴퓨터과학", "");
+        departmentService.create(department);
+
+        RegisterAccountDto account = new RegisterAccountDto();
+        account.setName("홍석준");
+        account.setPassword("1234");
+        account.setMajor("컴퓨터과학");
+        account.setUniYear(4);
+        account.setSemester(Semester.FALL);
+        account.setStudentId("201513501");
+        accountService.registerAccount(account);
     }
 
     @AfterEach
-    void afterEach(){myCourseRepository.deleteAll();}
+    void afterEach() {
+        courseRepository.deleteAll();
+        myCourseRepository.deleteAll();
+        accountRepository.deleteAll();
+        departmentRepository.deleteAll();
+    }
 
     @Test
     @DisplayName("수강 내역 조회")
-    void getMyCourse() throws Exception{
-        mvc.perform(get("/api/mycourses"))
+    void getMyCourse() throws Exception {
+        // Given
+        CourseSession course = new CourseSession(411394L, "컴퓨터구조", "전필", 3);
+        courseService.create(course);
+
+        MyCourse myCourse = new MyCourse(course, "201513501", Grade.AP, 4, Semester.SPRING);
+        myCourseRepository.save(myCourse);
+
+        // Then
+        mvc.perform(get("/api/mycourses")
+                .header("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdHVkZW50SWQiOiIyMDE1MTM1MDEiLCJuYW1lIjoi7ZmN7ISd7KSAIn0.43yzmbjYFAxNq7StIpH7QpuZp8M8lrj8A3X-CLJm78M"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(
                         containsString("\"courseName\":\"컴퓨터구조\"")));
@@ -54,51 +91,24 @@ public class MyCourseControllerTest {
 
     @Test
     @DisplayName("수강 내역 추가 - 정상 입력")
-    void createMyCourse() throws Exception{
+    void createMyCourse() throws Exception {
+        // Given
+        CourseSession course = new CourseSession(411394L, "컴퓨터구조", "전필", 3);
+        courseRepository.save(course);
+
         //When
         mvc.perform(post("/api/mycourses")
+                .header("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdHVkZW50SWQiOiIyMDE1MTM1MDEiLCJuYW1lIjoi7ZmN7ISd7KSAIn0.43yzmbjYFAxNq7StIpH7QpuZp8M8lrj8A3X-CLJm78M")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"courseCord\": 411395}"))
-                .andExpect(status().isCreated())
+                .content("[{\"courseCord\": 411394," +
+                        "\"grade\": \"AP\"," +
+                        "\"uniYear\": 3," +
+                        "\"semester\": \"FALL\"}]"))
+                .andExpect(status().isOk())
                 .andExpect(content().string((containsString("Success"))));
         //Then
         List<MyCourse> myCourseList = myCourseRepository.findAll();
-        assertEquals(2,myCourseList.size());
-        assertEquals(411394L,myCourseList.get(0).getCourseCord());
-        assertEquals(411395L,myCourseList.get(1).getCourseCord());
-    }
-
-    @Test
-    @DisplayName("수강 내역 하나 생성 - 이미 있는 수강 내역 입력")
-    void createMyCourseWithValid() throws  Exception{
-        //When
-        mvc.perform(post("/api/mycourses")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"courseCord\": 411394}"))
-                .andExpect(status().isBadRequest())
-                .andExpect(content().string(containsString("Error")));
-        //Then
-        List<MyCourse> myCourseList = myCourseRepository.findAll();
-        assertEquals(1,myCourseList.size());
-    }
-
-    @Test
-    @DisplayName("수강 내역 여러개 생성 - 정상 입력")
-    void createMyCourses() throws Exception{
-        //When
-        mvc.perform(post("/api/mycourses/all3")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content("[" +
-                        "{\"courseCord\": 411395}," +
-                        "{\"courseCord\": 411396}" +
-                        "]"))
-                .andExpect(status().isOk())
-                .andExpect(content().string(containsString("Success")));
-        //Then
-        List<MyCourse> myCourseList = myCourseRepository.findAll();
-        assertEquals(3, myCourseList.size());
-        assertEquals(411394L,myCourseList.get(0).getCourseCord());
-        assertEquals(411395L,myCourseList.get(1).getCourseCord());
-        assertEquals(411396L,myCourseList.get(2).getCourseCord());
+        assertEquals(1, myCourseList.size());
+        assertEquals(411394L, myCourseList.get(0).getCourseCord());
     }
 }

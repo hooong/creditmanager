@@ -1,7 +1,9 @@
 package com.knu.creditmanager.mycourse;
 
+import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,8 +20,12 @@ public class MyCourseController {
     private final MyCourseService myCourseService;
 
     @GetMapping
-    public List<MyCourse> allMyCourses() {
-        return myCourseService.getAllMyCourse();
+    public List<MyCourse> allMyCourses(
+            Authentication authentication) {
+        Claims claims = (Claims)authentication.getPrincipal();
+        String studentId = claims.get("studentId", String.class);
+
+        return myCourseService.getAllMyCourse(studentId);
     }
 
     @GetMapping("/{courseCord}")
@@ -39,8 +45,12 @@ public class MyCourseController {
     @PostMapping
     @Transactional
     public ResponseEntity<?> createMyCourses(
-            @RequestBody List<MyCourse> myCourseList){
-        myCourseService.createAll(myCourseList);
+            Authentication authentication,
+            @RequestBody List<MyCourseDto> resources){
+        Claims claims = (Claims)authentication.getPrincipal();
+        String studentId = claims.get("studentId", String.class);
+
+        myCourseService.createAll(resources, studentId);
 
         return ResponseEntity.ok().body("{\"message\" : \"Success Create (Without Overlap Name)\"}");
     }

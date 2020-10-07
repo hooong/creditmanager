@@ -9,14 +9,10 @@ import javax.persistence.Id;
 
 @Entity
 @NoArgsConstructor
-@AllArgsConstructor
 public class CourseSession extends Course {
 
     public CourseSession(Long courseCord, String courseName, String courseType, int coursePoint) {
         super(courseCord, courseName, courseType, coursePoint);
     }
-
-    @Id @GeneratedValue
-    private Long id;
 
 }
