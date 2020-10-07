@@ -47,6 +47,7 @@ public class AccountService {
         Account account = new Account(registerAccountDto.getName(),
                 registerAccountDto.getStudentId(),
                 encodedPassWord,
+                registerAccountDto.getUniYear(),
                 registerAccountDto.getSemester(),
                 department
                 );

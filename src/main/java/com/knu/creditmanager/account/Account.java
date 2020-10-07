@@ -1,6 +1,7 @@
 package com.knu.creditmanager.account;
 
 import com.knu.creditmanager.department.Department;
+import com.knu.creditmanager.grade.Semester;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
@@ -28,7 +29,10 @@ public class Account {
     private String password;
 
     @NonNull
-    private String semester;    // TODO: 학기 및 학년을 어떻게 저장할지?
+    private Integer uniYear;
+
+    @NonNull
+    private Semester semester;    // TODO: 학기 및 학년을 어떻게 저장할지?
 
     @NonNull
     @ManyToOne
