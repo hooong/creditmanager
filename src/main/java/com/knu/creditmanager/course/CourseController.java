@@ -32,7 +32,8 @@ public class CourseController {
     //수업 하나 생성
     @PostMapping
     @Transactional
-    public ResponseEntity<?> createCourse(@RequestBody Course resource) throws URISyntaxException{        Course course = courseService.create(resource);
+    public ResponseEntity<?> createCourse(@RequestBody Course resource) throws URISyntaxException{
+        Course course = courseService.create(resource);
 
         URI location = new URI("/api/courses/" + course.getCourseCord());
         return ResponseEntity.created(location).body("{\"message\" : \"Success Create\"}");

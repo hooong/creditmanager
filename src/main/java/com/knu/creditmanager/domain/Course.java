@@ -30,9 +30,11 @@ public class Course {
     @NonNull
     private String courseName;
 
+    //기초,균형등등 전공인지 확인
     @NonNull
     private String courseType;
 
+    //학점
     @NonNull
     private int coursePoint;
 
