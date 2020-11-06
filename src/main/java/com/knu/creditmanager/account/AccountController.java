@@ -1,5 +1,6 @@
 package com.knu.creditmanager.account;
 
+import com.knu.creditmanager.credit.CreditService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,7 @@ import java.util.List;
 public class AccountController {
 
     private final AccountService accountService;
+    private final CreditService creditService;
 
     @GetMapping
     public List<Account> getAccountslist() {
@@ -35,6 +37,7 @@ public class AccountController {
     public ResponseEntity<?> signUp(@RequestBody RegisterAccountDto resource) throws URISyntaxException {
 
         Account account = accountService.registerAccount(resource);
+        creditService.createCredit(account.getStudentId(), account.getAdmissionYear());
 
         URI location = new URI("/api/accounts/" + account.getId());
         return ResponseEntity.created(location).body("{\"message\": \"Success Created\"}");
