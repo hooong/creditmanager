@@ -40,6 +40,7 @@ public class MyCourseService {
         for(MyCourseDto myCourseDto: myCourseDtos){
             CourseSession courseSession = courseService.getCourse(myCourseDto.getCourseCord());
 
+            // 학점 추가 메소드
 
             MyCourse myCourse = new MyCourse(
                     courseSession,
@@ -47,7 +48,6 @@ public class MyCourseService {
                     myCourseDto.getGrade(),
                     myCourseDto.getUniYear(),
                     myCourseDto.getSemester());
-
             myCourseRepository.save(myCourse);
         }
     }
