@@ -54,4 +54,8 @@ public class Credit {
 
     // 전체 총점 130
     private Integer allSum;
+
+    public void calcSumCulture(int amount) {
+
+    }
 }

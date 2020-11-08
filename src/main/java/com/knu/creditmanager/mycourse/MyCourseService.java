@@ -42,6 +42,7 @@ public class MyCourseService {
 
             // 학점 추가 메소드
 
+
             MyCourse myCourse = new MyCourse(
                     courseSession,
                     studentId,
