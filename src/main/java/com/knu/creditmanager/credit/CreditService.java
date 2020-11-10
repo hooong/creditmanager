@@ -2,6 +2,7 @@ package com.knu.creditmanager.credit;
 
 import com.knu.creditmanager.curriculum.Curriculum;
 import com.knu.creditmanager.curriculum.CurriculumRepository;
+import com.knu.creditmanager.curriculum.CurriculumService;
 import com.knu.creditmanager.domain.CourseSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -11,35 +12,33 @@ import org.springframework.stereotype.Service;
 public class CreditService {
 
     private final CreditRepository creditRepository;
-    private final CurriculumRepository curriculumRepository;
+    private final CurriculumService curriculumService;
 
     public void saveCredit(String studentId, String year) {
-        Curriculum curriculum = curriculumRepository.findByCurriculumYear(year).orElse(null);
+        Credit credit = createCredit(studentId, year);
+
+        creditRepository.save(credit);
+    }
+
+    private Credit createCredit(String studentId, String year) {
+        Curriculum curriculum = curriculumService.getCurriculum(year);
 
         if (curriculum == null) {
             // TODO : 커리큘럼을 찾을 수 없는 에러
         }
 
-        Credit credit = createCredit(studentId, year, curriculum);
-
-        creditRepository.save(credit);
-    }
-
-    private Credit createCredit(String studentId, String year, Curriculum curriculum) {
-        return Credit.builder()
-                .studentId(studentId)
-                .curriculumYear(year)
-                .balance(curriculum.getBalance())
-                .foundation(curriculum.getFoundation())
-                .specialization(curriculum.getSpecialization())
-                .byUni(curriculum.getByUni())
-                .sumCulture(curriculum.getSumCulture())
-                .majorNecessary(curriculum.getMajorNecessary())
-                .majorSelection(curriculum.getMajorSelection())
-                .majorDeepening(curriculum.getMajorDeepening())
-                .freeChoice(curriculum.getFreeChoice())
-                .majorSum(curriculum.getMajorSum())
-                .allSum(curriculum.getAllSum()).build();
+        return new Credit(studentId, year,
+                curriculum.getFoundation(),
+                curriculum.getBalance(),
+                curriculum.getSpecialization(),
+                curriculum.getByUni(),
+                curriculum.getSumCulture(),
+                curriculum.getMajorNecessary(),
+                curriculum.getMajorSelection(),
+                curriculum.getMajorDeepening(),
+                curriculum.getMajorSum(),
+                curriculum.getFreeChoice(),
+                curriculum.getAllSum());
     }
 
     public void calcCredit(CourseSession courseSession, String studentId) {

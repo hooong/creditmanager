@@ -9,7 +9,6 @@ import javax.persistence.Id;
 
 @Entity
 @Getter
-@Builder
 @NoArgsConstructor
 @RequiredArgsConstructor
 public class Credit {
@@ -55,7 +54,28 @@ public class Credit {
     // 전체 총점 130
     private Integer allSum;
 
+    public Credit(String studentId, String curriculumYear, Integer foundation, Integer balance,
+                  Integer specialization, Integer byUni, Integer sumCulture,
+                  Integer majorNecessary, Integer majorSelection, Integer majorDeepening,
+                  Integer majorSum, Integer freeChoice, Integer allSum) {
+        this.studentId = studentId;
+        this.curriculumYear = curriculumYear;
+        this.foundation = foundation;
+        this.balance = balance;
+        this.specialization = specialization;
+        this.byUni = byUni;
+        this.sumCulture = sumCulture;
+        this.majorNecessary = majorNecessary;
+        this.majorSelection = majorSelection;
+        this.majorDeepening = majorDeepening;
+        this.majorSum = majorSum;
+        this.freeChoice = freeChoice;
+        this.allSum = allSum;
+    }
+
     public void calcSumCulture(int amount) {
 
     }
+
+
 }
