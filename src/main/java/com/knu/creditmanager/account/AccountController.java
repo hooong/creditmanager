@@ -1,9 +1,11 @@
 package com.knu.creditmanager.account;
 
 import com.knu.creditmanager.credit.CreditService;
+import io.jsonwebtoken.Claims;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,13 +23,16 @@ public class AccountController {
     private final AccountService accountService;
     private final CreditService creditService;
 
-    @GetMapping
+    @GetMapping("/all")
     public List<Account> getAccountslist() {
         return accountService.getAllAccounts();
     }
 
-    @GetMapping("/{studentId}")
-    public Account getAccount(@PathVariable String studentId) {
+    @GetMapping
+    public Account getAccount(Authentication authentication) {
+        Claims claims = (Claims)authentication.getPrincipal();
+        String studentId = claims.get("studentId", String.class);
+
         return accountService.getAccount(studentId);
     }
 
