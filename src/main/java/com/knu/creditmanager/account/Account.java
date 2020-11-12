@@ -46,7 +46,7 @@ public class Account {
     //    @JsonInclude(JsonInclude.Include.NON_NULL)
     //    private List<Course> courseList;
 
-    private List<GradeBySemester> gradeBySemesterList;
+//    private List<GradeBySemester> gradeBySemesterList;
 
     private Double avgGrade;       // 학점
 
