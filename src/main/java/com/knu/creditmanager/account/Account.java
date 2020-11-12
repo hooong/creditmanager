@@ -1,11 +1,13 @@
 package com.knu.creditmanager.account;
 
 import com.knu.creditmanager.department.Department;
+import com.knu.creditmanager.grade.GradeBySemester;
 import com.knu.creditmanager.grade.Semester;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -44,7 +46,9 @@ public class Account {
     //    @JsonInclude(JsonInclude.Include.NON_NULL)
     //    private List<Course> courseList;
 
-    private Double grade;       // 학점
+    private List<GradeBySemester> gradeBySemesterList;
+
+    private Double avgGrade;       // 학점
 
     private String admissionYear;
 

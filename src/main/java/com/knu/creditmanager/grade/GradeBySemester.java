@@ -10,6 +10,8 @@ public class GradeBySemester {
     @Id @GeneratedValue
     private Long id;
 
+    private String studentId;
+
     // 1, 2, 3, 4 ...
     private Integer uniYear;
 
