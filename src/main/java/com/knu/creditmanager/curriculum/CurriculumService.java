@@ -13,4 +13,10 @@ public class CurriculumService {
     public Curriculum getCurriculum(String year){
         return curriculumRepository.findByCurriculumYear(year).orElse(null);
     }
+
+    public Long createCurriculum(Curriculum curriculum) {
+        Curriculum cur = curriculumRepository.save(curriculum);
+
+        return cur.getId();
+    }
 }
