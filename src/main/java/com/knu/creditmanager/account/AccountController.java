@@ -13,6 +13,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 
+@CrossOrigin
 @RequestMapping(value = "/api/accounts")
 @RestController
 @RequiredArgsConstructor
