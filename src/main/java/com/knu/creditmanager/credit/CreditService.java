@@ -1,9 +1,7 @@
 package com.knu.creditmanager.credit;
 
 import com.knu.creditmanager.curriculum.Curriculum;
-import com.knu.creditmanager.curriculum.CurriculumRepository;
 import com.knu.creditmanager.curriculum.CurriculumService;
-import com.knu.creditmanager.domain.CourseSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -41,21 +39,21 @@ public class CreditService {
                 curriculum.getAllSum());
     }
 
-    public void calcCredit(CourseSession courseSession, String studentId) {
-        Credit credit = creditRepository.findByStudentId(studentId);
-
-        String type = courseSession.getCourseType();
-
-        if (type.equals("균형교양") || type.equals("기초교양") || type.equals("특화교양") || type.equals("대학별교양")) {
-            if (credit.getSumCulture() > 0) {
-
-            }
-        } else if (type.equals("전공필수") || type.equals("전공선택") || type.equals("전공심화")) {
-
-        } else if (type.equals("자유선택")) {
-
-        }
-
-    }
+//    public void calcCredit(CourseSession courseSession, String studentId) {
+//        Credit credit = creditRepository.findByStudentId(studentId);
+//
+//        String type = courseSession.getCourseType();
+//
+//        if (type.equals("균형교양") || type.equals("기초교양") || type.equals("특화교양") || type.equals("대학별교양")) {
+//            if (credit.getSumCulture() > 0) {
+//
+//            }
+//        } else if (type.equals("전공필수") || type.equals("전공선택") || type.equals("전공심화")) {
+//
+//        } else if (type.equals("자유선택")) {
+//
+//        }
+//
+//    }
 
 }

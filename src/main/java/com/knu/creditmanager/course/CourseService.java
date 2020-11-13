@@ -1,6 +1,5 @@
 package com.knu.creditmanager.course;
 
-import com.knu.creditmanager.domain.CourseSession;
 import com.knu.creditmanager.exception.CourseExistedException;
 import com.knu.creditmanager.exception.CourseNotExistedException;
 import lombok.RequiredArgsConstructor;
@@ -15,33 +14,21 @@ public class CourseService {
 
     private final CourseRepository courseRepository;
 
-    public List<CourseSession> getAllCourse() {
+    public List<Course> getAllCourse() {
         return courseRepository.findAll();
     }
 
-    public CourseSession getCourse(Long courseCord) {
-        return courseRepository.findByCourseCord(courseCord).orElseThrow(() -> new CourseNotExistedException(courseCord));
+    public Course getCourse(Long id) {
+        return courseRepository.findById(id).orElseThrow(() -> new CourseNotExistedException(id));
     }
 
-    public CourseSession create(CourseSession course) {
-        CourseSession existed = courseRepository.findByCourseCord(course.getCourseCord())
-                .orElse(null);
-
-        if (existed != null) {
-            throw new CourseExistedException(course.getCourseCord());
-        }
-
+    public Course create(Course course) {
         return courseRepository.save(course);
     }
 
-    public void createAll(List<CourseSession> courseList){
-        for(CourseSession course: courseList){
-            CourseSession existed = courseRepository.findByCourseCord(course.getCourseCord())
-                    .orElse(null);
-
-            if(existed == null){
-                courseRepository.save(course);
-            }
+    public void createAll(List<Course> courseList){
+        for(Course course: courseList){
+            courseRepository.save(course);
         }
     }
 }

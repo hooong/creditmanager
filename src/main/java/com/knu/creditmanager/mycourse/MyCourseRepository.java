@@ -9,7 +9,7 @@ import java.util.Optional;
 @Repository
 public interface MyCourseRepository extends JpaRepository<MyCourse,Long> {
 
-    Optional<MyCourse> findByCourseCord(Long courseCord);
+//    Optional<MyCourse> findByCourseCord(Long courseCord);
 
-    List<MyCourse> findAllByStudentId(String studentId);
+//    List<MyCourse> findAllByStudentId(String studentId);
 }

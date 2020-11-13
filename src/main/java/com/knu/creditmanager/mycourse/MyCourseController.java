@@ -18,19 +18,19 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class MyCourseController {
 
-    private final MyCourseService myCourseService;
-
-    @GetMapping
-    public List<MyCourse> allMyCourses(
-            Authentication authentication) {
-        Claims claims = (Claims)authentication.getPrincipal();
-        String studentId = claims.get("studentId", String.class);
-
-        return myCourseService.getAllMyCourse(studentId);
-    }
-
-    @GetMapping("/{courseCord}")
-    public MyCourse MyCourse(@PathVariable Long courseCord) {return myCourseService.getCourse(courseCord);}
+//    private final MyCourseService myCourseService;
+//
+//    @GetMapping
+//    public List<MyCourse> allMyCourses(
+//            Authentication authentication) {
+//        Claims claims = (Claims)authentication.getPrincipal();
+//        String studentId = claims.get("studentId", String.class);
+//
+//        return myCourseService.getAllMyCourse(studentId);
+//    }
+//
+//    @GetMapping("/{courseCord}")
+//    public MyCourse MyCourse(@PathVariable Long courseCord) {return myCourseService.getCourse(courseCord);}
 
     //수강하나신청
 //    @PostMapping
@@ -43,17 +43,17 @@ public class MyCourseController {
 //    }
 
     //배열로 입력받은 수업 모두 생성
-    @PostMapping
-    @Transactional
-    public ResponseEntity<?> createMyCourses(
-            Authentication authentication,
-            @RequestBody List<MyCourseDto> resources){
-        Claims claims = (Claims)authentication.getPrincipal();
-        String studentId = claims.get("studentId", String.class);
-
-        myCourseService.createAll(resources, studentId);
-
-        return ResponseEntity.ok().body("{\"message\" : \"Success Create (Without Overlap Name)\"}");
-    }
+//    @PostMapping
+//    @Transactional
+//    public ResponseEntity<?> createMyCourses(
+//            Authentication authentication,
+//            @RequestBody List<MyCourseDto> resources){
+//        Claims claims = (Claims)authentication.getPrincipal();
+//        String studentId = claims.get("studentId", String.class);
+//
+//        myCourseService.createAll(resources, studentId);
+//
+//        return ResponseEntity.ok().body("{\"message\" : \"Success Create (Without Overlap Name)\"}");
+//    }
 
 }
