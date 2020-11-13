@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 public class MyCourseDto {
-    private Long courseCord;
+    private Long courseId;
     private Grade grade;
     private Integer uniYear;
     private Semester semester;

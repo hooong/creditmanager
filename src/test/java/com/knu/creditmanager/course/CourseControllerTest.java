@@ -119,25 +119,52 @@ class CourseControllerTest {
 //        assertEquals(1,courseList.size());
 //    }
 
-//    @Test
-//    @DisplayName("수업 여러개 생성 - 정상 입력")
-//    void createCourses() throws Exception{
-//        //When
-//        mvc.perform(post("/api/courses/all2")
-//                .contentType(MediaType.APPLICATION_JSON)
-//                .content("[" +
-//                        "{\"courseCord\": 411395}," +
-//                        "{\"courseCord\": 411396}" +
-//                        "]"))
-//                .andExpect(status().isOk())
-//                .andExpect(content().string(containsString("Success")));
-//
-//        //Then
-//        List<CourseSession> courseList = courseRepository.findAll();
-//        assertEquals(3, courseList.size());
-//        assertEquals(411394L,courseList.get(0).getCourseCord());
-//        assertEquals(411395L,courseList.get(1).getCourseCord());
-//        assertEquals(411396L,courseList.get(2).getCourseCord());
-//    }
+    @Test
+    @DisplayName("수업 여러개 생성 - 정상 입력")
+    void createCourses() throws Exception{
+        //When
+        mvc.perform(post("/api/courses/all2")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("[" +
+                        "{\"courseType\":\"전공필수\"" +
+                        ",\"courseFTF\":\"비대면\"" +
+                        ",\"courseCord\":4471016," +
+                        "\"courseDivision\":4," +
+                        "\"courseName\":\"알고리즘\"," +
+                        "\"courseCredit\":\"3-3-0-0\"," +
+                        "\"courseTypeDetail\":\"\"," +
+                        "\"courseTarget\":\"컴퓨터공학과()2\"," +
+                        "\"coursePerson\":40," +
+                        "\"courseUni\":\"IT대학\"," +
+                        "\"courseMid\":\"컴퓨터공학과\"," +
+                        "\"courseDep\":\"\"," +
+                        "\"corseTeach\":\"김도형\"," +
+                        "\"courseTeachType\":\"전임교원\"," +
+                        "\"courseTime\":\"월A2,목A2(한빛관 412)\"," +
+                        "\"courseELearning\":\"N\"}," +
+                        "{\"courseType\":\"전공필수\"," +
+                        "\"courseFTF\":\"비대면\"," +
+                        "\"courseCord\":4471016," +
+                        "\"courseDivision\":3," +
+                        "\"courseName\":\"알고리즘\"," +
+                        "\"courseCredit\":\"3-3-0-0\"," +
+                        "\"courseTypeDetail\":\"\"," +
+                        "\"courseTarget\":\"컴퓨터공학과()2\"," +
+                        "\"coursePerson\":40," +
+                        "\"courseUni\":\"IT대학\"," +
+                        "\"courseMid\":\"컴퓨터공학과\"," +
+                        "\"courseDep\":\"\"," +
+                        "\"corseTeach\":\"문양세\"," +
+                        "\"courseTeachType\":\"전임교원\"," +
+                        "\"courseTime\":\"월A1,목A1(한빛관 412)\"," +
+                        "\"courseELearning\":\"N\"}"+
+                        "]"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("Success")));
+
+        //Then
+        List<Course> courseList = courseRepository.findAll();
+        assertEquals(3, courseList.size());
+    }
 
 }
