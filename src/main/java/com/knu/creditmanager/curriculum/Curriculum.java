@@ -57,4 +57,25 @@ public class Curriculum {
 
     // 전체 총점 130
     private Integer allSum;
+
+    @Override
+    public String toString() {
+        return "Curriculum{" +
+                "id=" + id +
+                ", curriculumYear='" + curriculumYear + '\'' +
+                ", curriculumUni='" + curriculumUni + '\'' +
+                ", curriculumName='" + curriculumName + '\'' +
+                ", foundation=" + foundation +
+                ", balance=" + balance +
+                ", specialization=" + specialization +
+                ", byUni=" + byUni +
+                ", sumCulture=" + sumCulture +
+                ", majorNecessary=" + majorNecessary +
+                ", majorSelection=" + majorSelection +
+                ", majorDeepening=" + majorDeepening +
+                ", majorSum=" + majorSum +
+                ", freeChoice=" + freeChoice +
+                ", allSum=" + allSum +
+                '}';
+    }
 }

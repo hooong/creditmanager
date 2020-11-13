@@ -1,5 +1,6 @@
 package com.knu.creditmanager.account;
 
+import com.knu.creditmanager.curriculum.CurriculumRepository;
 import com.knu.creditmanager.department.DepartmentRepository;
 import com.knu.creditmanager.department.DepartmentService;
 import com.knu.creditmanager.department.Department;
@@ -31,9 +32,10 @@ class AccountControllerTest {
     @Autowired AccountRepository accountRepository;
     @Autowired DepartmentService departmentService;
     @Autowired DepartmentRepository departmentRepository;
+    @Autowired CurriculumRepository curriculumRepository;
 
     @BeforeEach
-    void beforeEach() {
+    void beforeEach() throws Exception {
         Department department = new Department("컴퓨터과학", "");
         departmentService.create(department);
 
@@ -45,6 +47,25 @@ class AccountControllerTest {
         account.setSemester(Semester.FALL);
         account.setStudentId("201513501");
         accountService.registerAccount(account);
+
+        mvc.perform(post("/api/curriculums")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\n" +
+                        "        \"curriculumUni\":\"IT대학\",\n" +
+                        "            \"curriculumName\":\"컴퓨터공학과\",\n" +
+                        "            \"foundation\":10,\n" +
+                        "            \"balance\":12,\n" +
+                        "            \"specialization\":1,\n" +
+                        "            \"byUni\":18,\n" +
+                        "            \"sumCulture\":41,\n" +
+                        "            \"majorNecessary\":12,\n" +
+                        "            \"majorSelection\":30,\n" +
+                        "            \"majorDeepening\":12,\n" +
+                        "            \"majorSum\":54,\n" +
+                        "            \"freeChoice\":35,\n" +
+                        "            \"allSum\":130,\n" +
+                        "            \"curriculumYear\":2015\n" +
+                        "    }"));
     }
 
     @AfterEach

@@ -13,7 +13,9 @@ import java.util.List;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.junit.jupiter.api.Assertions.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -21,6 +23,15 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 class CurriculumControllerTest {
     @Autowired MockMvc mvc;
+
+    @Autowired CurriculumRepository curriculumRepository;
+
+//    @Test
+//    @DisplayName("커리큘럼 조회")
+//    void getCurriculum() throws Exception {
+//        mvc.perform(get("/api/curriculums"))
+//                .andDo(print());
+//    }
 
     @Test
     @DisplayName("커리큘럼 생성 - 정상 입력")
@@ -30,24 +41,28 @@ class CurriculumControllerTest {
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\n" +
                         "        \"curriculumUni\":\"IT대학\",\n" +
-                        "            \"curriculumName\":\"컴퓨터공학과\",\n" +
-                        "            \"foundation\":10,\n" +
-                        "            \"balance\":12,\n" +
-                        "            \"Specialization\":1,\n" +
-                        "            \"byUni\":18,\n" +
-                        "            \"sumCulture\":41,\n" +
-                        "            \"majorNecessary\":12,\n" +
-                        "            \"majorSelection\":30,\n" +
-                        "            \"majorDeepening\":12,\n" +
-                        "            \"majorSum\":54,\n" +
-                        "            \"freeChoice\":35,\n" +
-                        "            \"allSum\":130,\n" +
-                        "            \"curriculumYear\":2020\n" +
+                        "        \"curriculumName\":\"컴퓨터공학과\",\n" +
+                        "        \"foundation\":10,\n" +
+                        "        \"balance\":12,\n" +
+                        "        \"specialization\":1,\n" +
+                        "        \"byUni\":18,\n" +
+                        "        \"sumCulture\":41,\n" +
+                        "        \"majorNecessary\":12,\n" +
+                        "        \"majorSelection\":30,\n" +
+                        "        \"majorDeepening\":12,\n" +
+                        "        \"majorSum\":54,\n" +
+                        "        \"freeChoice\":35,\n" +
+                        "        \"allSum\":130,\n" +
+                        "        \"curriculumYear\":2020\n" +
                         "    }"))
                 .andExpect(status().isCreated())
                 .andExpect(content().string(containsString("Success")));
 
         // Then
+        List<Curriculum> curriculumList = curriculumRepository.findAll();
+        for (Curriculum c: curriculumList) {
+            System.out.println(c.toString());
+        }
 //        List<Department> departmentList = departmentRepository.findAll();
 //        assertEquals(2, departmentList.size());
 //        assertEquals("컴퓨터과학", departmentList.get(0).getName());
