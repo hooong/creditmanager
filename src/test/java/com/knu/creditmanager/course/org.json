@@ -1,0 +1,301 @@
+[
+    {"name" : "간호대학",
+    "department" : [
+        {"name" : "간호학과",
+         "major" : [
+            {"name": "간호학과","link": "http://nurse.kangwon.ac.kr/"}
+            ]
+        }
+    ]},
+    {"name" : "경영대학",
+    "department" : [
+        {"name" : "경영·회계학부",
+         "major" : [
+            {"name": "경영학전공","link": "http://biz.kangwon.ac.kr/main.php"},
+            {"name": "회계학전공","link": "http://account.kangwon.ac.kr/"}
+            ]
+        },
+        {"name" : "경제·정보통계학부",
+         "major" : [
+            {"name": "경제학전공","link": "http://economics.kangwon.ac.kr/"},
+            {"name": "정보통계학전공","link": "http://statistics.kangwon.ac.kr/"}
+            ]
+        },
+        {"name" : "관광경영학과",
+         "major" : [
+            {"name": "관광경영학과","link": "http://tourism.kangwon.ac.kr/"}
+            ]
+        },
+        {"name" : "국제무역학과",
+         "major" : [
+            {"name": "국제무역학과","link": "http://itb.kangwon.ac.kr/"}
+            ]
+        }
+    ]},
+    {"name" : "농업생명·과학대학",
+    "department" : [
+        {"name" : "바이오산업공학부",
+         "major" : [
+            {"name": "바이오시스템기계공학전공","link": "http://bse.kangwon.ac.kr/"},
+            {"name": "식품생명공학전공","link": "https://foodtech.kangwon.ac.kr/"}
+            ]
+        },
+        {"name" : "생물자원과학부",
+         "major" : [
+            {"name": "식물자원응용과학전공","link": "http://appliedplant.kangwon.ac.kr/"},
+            {"name": "응용생물학전공","link": "http://applybio.kangwon.ac.kr/"}
+            ]
+        },
+        {"name" : "원예·농업자원경제학부",
+         "major" : [
+            {"name": "농업자원경제학전공","link": "https://agecon.kangwon.ac.kr/"},
+            {"name": "원예과학전공","link": "https://horti.kangwon.ac.kr/"}
+            ]
+        },
+        {"name" : "지역건설공학과",
+         "major" : [
+            {"name": "지역건설공학과","link": "https://aed.kangwon.ac.kr/"}
+            ]
+        },
+        {"name" : "환경융합학부",
+         "major" : [
+            {"name": "바이오자원환경학전공","link": "https://dbe.kangwon.ac.kr/"},
+            {"name": "에코환경과학전공","link": "http://ecoenv.kangwon.ac.kr"}
+            ]
+        },
+        {"name" : "미래농업융합학부",
+         "major" : [
+            {"name": "농생명산업학전공","link": "http://cll.kangwon.ac.kr/"},
+            {"name": "시설농업학전공","link": "http://cll.kangwon.ac.kr/"}
+            ]
+        }
+    ]},
+    {"name" : "동물생명·과학대학",
+    "department" : [
+        {"name" : "동물산업융합학과",
+         "major" : [
+            {"name": "동물산업융합학과","link": "https://animal.kangwon.ac.kr/"}
+            ]
+        },
+        {"name" : "동물응용과학과",
+         "major" : [
+            {"name": "동물응용과학과","link": "https://applanimalsci.kangwon.ac.kr/"}
+            ]
+        },
+        {"name" : "동물자원과학과",
+         "major" : [
+            {"name": "동물자원과학과","link": "https://aniscience.kangwon.ac.kr/"}
+            ]
+        }
+    ]},
+    {"name" : "문화예술·공과대학",
+    "department" : [
+        {"name" : "건축학과",
+         "major" : [
+            {"name": "건축학과","link": "http://architecture.kangwon.ac.kr/"}
+            ]
+        },
+        {"name" : "건축·토목·환경공학부",
+         "major" : [
+            {"name": "건축공학전공","link": "http://archi.kangwon.ac.kr/"},
+            {"name": "토목공학전공","link": "http://civil.kangwon.ac.kr/2014/"},
+            {"name": "환경공학전공","link": "http://environ.kangwon.ac.kr/"}
+            ]
+        },
+        {"name" : "기계의용·메카트로닉스·재료공학부",
+         "major" : [
+            {"name": "기계의용공학전공","link": "http://mechanical.kangwon.ac.kr/"},
+            {"name": "메카트로닉스공학전공","link": "http://www.mecha.ac.kr/"},
+            {"name": "재료공학전공","link": "http://material.kangwon.ac.kr/"}
+            ]
+        },
+        {"name" : "에너지자원·산업공학부",
+         "major" : [
+            {"name": "산업공학전공","link": "http://sme.kangwon.ac.kr/"},
+            {"name": "에너지자원공학전공","link": "http://www.enre.kr/"}
+            ]
+        },
+        {"name" : "화학·생물공학부",
+         "major" : [
+            {"name": "생물공학전공","link": "http://bioeng.kangwon.ac.kr/"},
+            {"name": "화학공학전공","link": "http://chemeng.kangwon.ac.kr/"}
+            ]
+        },
+        {"name" : "디자인학과",
+         "major" : [
+            {"name": "디자인학과","link": "http://design.kangwon.ac.kr/wp/"}
+            ]
+        },
+        {"name" : "무용학과",
+         "major" : [
+            {"name": "무용학과","link": ""}
+            ]
+        },
+        {"name" : "미술학과",
+         "major" : [
+            {"name": "미술학과","link": "http://kangwonart.ac.kr/"}
+            ]
+        },
+        {"name" : "스포츠과학과",
+         "major" : [
+            {"name": "스포츠과학과","link": "http://sport.kangwon.ac.kr/"}
+            ]
+        },
+        {"name" : "영상문화학과",
+         "major" : [
+            {"name": "영상문화학과","link": "http://vculture.kangwon.ac.kr/"}
+            ]
+        },
+        {"name" : "음학학과",
+         "major" : [
+            {"name": "음학학과","link": ""}
+            ]
+        }
+    ]},
+    {"name" : "사회과학대학",
+    "department" : [
+        {"name" : "문화인류학과",
+         "major" : [
+            {"name": "문화인류학과","link": "http://anthro.kangwon.ac.kr/"}
+            ]
+        },
+        {"name" : "부동산학과",
+         "major" : [
+            {"name": "부동산학과","link": "http://re1978.kangwon.ac.kr/"}
+            ]
+        },
+        {"name" : "사회학과",
+         "major" : [
+            {"name": "사회학과","link": "http://sociology.kangwon.ac.kr/"}
+            ]
+        },
+        {"name" : "신문방송학과",
+         "major" : [
+            {"name": "신문방송학과","link": "http://masscom.kangwon.ac.kr/index.php"}
+            ]
+        },
+        {"name" : "정치외교학과",
+         "major" : [
+            {"name": "정치외교학과","link": "http://politics.kangwon.ac.kr/"}
+            ]
+        },
+        {"name" : "행정ㆍ심리학부",
+         "major" : [
+            {"name": "심리학전공","link": "http://psych.kangwon.ac.kr/contents/main.htm"},
+            {"name": "행정학전공","link": "https://padm.kangwon.ac.kr:40592/"}
+            ]
+        }
+    ]},
+    {"name" : "산림환경과학대학",
+    "department" : [
+        {"name" : "산림과학부",
+         "major" : [
+            {"name": "산림경영학전공","link": "http://fm.kangwon.ac.kr/"},
+            {"name": "산림자원학전공","link": "http://forestry.kangwon.ac.kr/"},
+            {"name": "산림환경보호학전공","link": "http://fep.kangwon.ac.kr/main.php"}
+            ]
+        },
+        {"name" : "산림응용공학부",
+         "major" : [
+            {"name": "산림소재공학전공","link": "https://wood.kangwon.ac.kr/"},
+            {"name": "제지공학전공","link": "https://paper.kangwon.ac.kr/"}
+            ]
+        },
+        {"name" : "생태조경디자인학과",
+         "major" : [
+            {"name": "생태조경디자인학과","link": "http://lands.kangwon.ac.kr/"}
+            ]
+        }
+    ]},
+    {"name" : "의생명과학대학",
+    "department" : [
+        {"name" : "분자생명과학과",
+         "major" : [
+            {"name": "분자생명과학과","link": "http://molscien.kangwon.ac.kr/"}
+            ]
+        },
+        {"name" : "생명건강공학과",
+         "major" : [
+            {"name": "생명건강공학과","link": "http://bio-health.kangwon.ac.kr/"}
+            ]
+        },
+        {"name" : "생물의소재공학과",
+         "major" : [
+            {"name": "생물의소재공학과","link": "http://bme.kangwon.ac.kr/"}
+            ]
+        },
+        {"name" : "시스템면역과학전공",
+         "major" : [
+            {"name": "시스템면역과학전공","link": "http://si.kangwon.ac.kr/"}
+            ]
+        },
+        {"name" : "의생명공학전공",
+         "major" : [
+            {"name": "의생명공학전공","link": "http://dmbt.kangwon.ac.kr/"}
+            ]
+        }
+    ]},
+    {"name" : "인문대학",
+    "department" : [
+      {"name" : "인문학부",
+        "major" : [
+          {"name": "국어국문학전공","link": "http://korean.kangwon.ac.kr/2013/main.php"},
+          {"name": "독어독문학전공","link": "http://german.kangwon.ac.kr/"},
+          {"name": "불어불문학전공","link": "http://france.kangwon.ac.kr/"},
+          {"name": "사학전공","link": "http://khisto.cafe24.com/"},
+          {"name": "영어영문학전공","link": "http://english.kangwon.ac.kr/new/"},
+          {"name": "일본학전공","link": "http://www.kw-japan.com/"},
+          {"name": "중어중문학전공","link": "http://chinese.kangwon.ac.kr/"},
+          {"name": "철학전공","link": "http://kwphilo.kangwon.ac.kr/"}
+        ]
+      }
+    ]},
+    {"name" : "자연과학대학",
+    "department" : [
+        {"name" : "물리학과",
+        "major" : [
+            {"name" :  "물리학과","link": "http://physics.kangwon.ac.kr/"}
+        ]
+        },
+        {"name" : "생명과학과",
+        "major" : [
+            {"name" :  "생명과학과","link": "http://biology.kangwon.ac.kr/"}
+        ]
+        },
+        {"name" : "수학과",
+        "major" : [
+            {"name" :  "수학과","link": "http://math.kangwon.ac.kr/xe/"}
+        ]
+        },
+        {"name" : "지질·지구물리학부",
+        "major" : [
+            {"name" :  "지구물리학전공","link": "http://geophysics.kangwon.ac.kr/korean/portal.php"},
+            {"name" :  "지질학전공","link": "https://geology.kangwon.ac.kr:40864/korean/portal.php"}
+        ]
+        },
+        {"name" : "화학·생화학부",
+        "major" : [
+            {"name" :  "생화학전공","link": "http://biochem.kangwon.ac.kr/"},
+            {"name" :  "화학전공","link": "http://chemis.kangwon.ac.kr/"}
+        ]
+        }
+    ]},
+    {"name" : "IT대",
+    "department" : [
+        {"name" : "전기전자공학과",
+        "major" : [
+            {"name": "전기전자공학과","link": "https://eee.kangwon.ac.kr/"}
+        ]
+        },
+        {"name" : "전자공학과",
+        "major" : [
+            {"name": "전자공학과","link": "http://ee.kangwon.ac.kr/"}
+        ]
+        },
+        {"name" : "컴퓨터공학과",
+        "major" : [
+            {"name": "컴퓨터공학과","link": "http://cse.kangwon.ac.kr"}
+        ]
+        }
+    ]}
+]

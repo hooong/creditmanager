@@ -17,6 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -165,6 +166,14 @@ class CourseControllerTest {
         //Then
         List<Course> courseList = courseRepository.findAll();
         assertEquals(3, courseList.size());
+    }
+
+    @Test
+    @DisplayName("수업검색")
+    void search() throws Exception {
+        mvc.perform(get("/api/courses/search")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"courseType\":\"전공필수\", \"courseTarget\": \"컴퓨터공학과\"}")).andDo(print()).andExpect(status().isOk());
     }
 
 }

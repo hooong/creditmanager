@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.List;
 
 
 @CrossOrigin
@@ -19,10 +20,11 @@ public class UniversityController {
 
     @PostMapping
     public ResponseEntity<?> createUniv(
-            @RequestBody University resource) throws URISyntaxException {
-        University university = universityService.registUniversity(resource);
+            @RequestBody List<University> resource) throws URISyntaxException {
+        for (University univ: resource) {
+            universityService.registUniversity(univ);
+        }
 
-        URI location = new URI("/api/university/" + university.getId());
-        return ResponseEntity.created(location).body("{\"message\": \"Success Created\"}");
+        return ResponseEntity.created(new URI("")).body("{\"message\": \"Success Created\"}");
     }
 }

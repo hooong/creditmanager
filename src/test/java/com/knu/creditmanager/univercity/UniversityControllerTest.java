@@ -24,9 +24,9 @@ class UniversityControllerTest {
     void create() throws Exception {
         mvc.perform(post("/api/university")
         .contentType(MediaType.APPLICATION_JSON)
-        .content("{\"name\" : \"경영대학\"," +
+        .content("[{\"name\" : \"경영대학\"," +
                 "\"department\" : [{\"name\" : \"경영·회계학부\", \"major\" : [{\"name\": \"경영학전공\",\"link\": \"http://biz.kangwon.ac.kr/main.php\"},{\"name\": \"회계학전공\",\"link\": \"http://account.kangwon.ac.kr/\"}]\n" +
-                "}]}"))
+                "}]}]"))
                 .andExpect(status().isCreated());
     }
 
