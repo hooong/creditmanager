@@ -25,6 +25,8 @@ public class MyCourse {
     @NonNull
     private Long courseId;
 
+    private String type;
+
     private Grade grade;
 
     private Integer credit;

@@ -2,6 +2,7 @@ package com.knu.creditmanager.credit;
 
 import com.knu.creditmanager.account.Account;
 import com.knu.creditmanager.account.AccountService;
+import com.knu.creditmanager.course.Course;
 import com.knu.creditmanager.curriculum.Curriculum;
 import com.knu.creditmanager.curriculum.CurriculumService;
 import lombok.RequiredArgsConstructor;
@@ -54,4 +55,9 @@ public class CreditService {
         return creditRepository.findByStudentId(studentId);
     }
 
+    public void calcCredit(String studentId, Course course) {
+        Credit credit = findCredit(studentId);
+
+        credit.cutCredit(course);
+    }
 }

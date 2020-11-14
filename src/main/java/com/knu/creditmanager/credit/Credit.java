@@ -1,5 +1,6 @@
 package com.knu.creditmanager.credit;
 
+import com.knu.creditmanager.course.Course;
 import com.knu.creditmanager.curriculum.Curriculum;
 import lombok.*;
 
@@ -73,9 +74,18 @@ public class Credit {
         this.allSum = allSum;
     }
 
-    public void calcSumCulture(int amount) {
+    public void cutCredit(Course course) {
+        String type = course.getCourseType();
 
+        switch (type) {
+            case "기초교양":
+            case "균형교양":
+            case "특화교양":
+            case "대학별교양":
+            case "교직":
+            case "자유선택":
+            case "전공필수":
+            case "전공선택":
+        }
     }
-
-
 }

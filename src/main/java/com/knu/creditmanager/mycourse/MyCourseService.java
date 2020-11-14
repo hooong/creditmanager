@@ -2,6 +2,8 @@ package com.knu.creditmanager.mycourse;
 
 import com.knu.creditmanager.course.Course;
 import com.knu.creditmanager.course.CourseService;
+import com.knu.creditmanager.credit.Credit;
+import com.knu.creditmanager.credit.CreditService;
 import com.knu.creditmanager.exception.MyCourseExistedException;
 import com.knu.creditmanager.exception.MyCourseNotExistedException;
 import lombok.RequiredArgsConstructor;
@@ -15,6 +17,7 @@ public class MyCourseService {
 
     private final MyCourseRepository myCourseRepository;
     private final CourseService courseService;
+    private final CreditService creditService;
 
     public List<MyCourse> getAllMyCourse(String studentId){
         return myCourseRepository.findAllByStudentId(studentId);
@@ -37,18 +40,21 @@ public class MyCourseService {
         for(MyCourseDto myCourseDto: myCourseDtos){
             Course course = courseService.getCourse(myCourseDto.getCourseId());
 
-            // 학점 추가 메소드
-
             MyCourse myCourse = MyCourse.builder()
                     .courseId(myCourseDto.getCourseId())
                     .studentId(studentId)
+                    .type(course.getCourseType())
                     .grade(myCourseDto.getGrade())
                     .uniYear(myCourseDto.getUniYear())
                     .semester(myCourseDto.getSemester())
                     .credit(getCredit(course))
                     .build();
 
-            myCourseRepository.save(myCourse);
+            MyCourse saved = myCourseRepository.save(myCourse);
+
+            // 학점 추가 메소드
+            // 수업, studentId 넘겨주고 알아서 하게끔.
+            creditService.calcCredit(studentId, course);
         }
     }
 
