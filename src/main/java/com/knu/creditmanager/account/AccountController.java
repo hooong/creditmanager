@@ -42,7 +42,6 @@ public class AccountController {
     public ResponseEntity<?> signUp(@RequestBody RegisterAccountDto resource) throws URISyntaxException {
 
         Account account = accountService.registerAccount(resource);
-        creditService.firstCreateCredit(account);
 
         URI location = new URI("/api/accounts/" + account.getId());
         return ResponseEntity.created(location).body("{\"message\": \"Success Created\"}");

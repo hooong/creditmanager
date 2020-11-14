@@ -1,5 +1,6 @@
 package com.knu.creditmanager.account;
 
+import com.knu.creditmanager.credit.CreditService;
 import com.knu.creditmanager.department.DepartmentService;
 import com.knu.creditmanager.department.Department;
 import com.knu.creditmanager.exception.PasswordWrongException;
@@ -20,6 +21,7 @@ public class AccountService {
     private final AccountRepository accountRepository;
     private final DepartmentService departmentService;
     private final PasswordEncoder passwordEncoder;
+    private final CreditService creditService;
 
     @Transactional(readOnly = true)
     public List<Account> getAllAccounts() {
@@ -49,6 +51,8 @@ public class AccountService {
                 department
                 );
         account.setAdmissionYear();
+
+        creditService.firstCreateCredit(account);
 
         return accountRepository.save(account);
     }

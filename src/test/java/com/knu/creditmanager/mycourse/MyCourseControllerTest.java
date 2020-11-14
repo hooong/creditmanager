@@ -6,11 +6,15 @@ import com.knu.creditmanager.account.RegisterAccountDto;
 import com.knu.creditmanager.course.Course;
 import com.knu.creditmanager.course.CourseRepository;
 import com.knu.creditmanager.course.CourseService;
+import com.knu.creditmanager.credit.Credit;
+import com.knu.creditmanager.credit.CreditRepository;
+import com.knu.creditmanager.curriculum.CurriculumRepository;
 import com.knu.creditmanager.department.Department;
 import com.knu.creditmanager.department.DepartmentRepository;
 import com.knu.creditmanager.department.DepartmentService;
 import com.knu.creditmanager.grade.Grade;
 import com.knu.creditmanager.grade.Semester;
+import org.hamcrest.Matchers;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -47,39 +51,62 @@ public class MyCourseControllerTest {
     @Autowired private AccountRepository accountRepository;
     @Autowired private DepartmentService departmentService;
     @Autowired private DepartmentRepository departmentRepository;
+    @Autowired private CreditRepository creditRepository;
+    @Autowired private CurriculumRepository curriculumRepository;
 
     @BeforeEach
     void beforeEach() throws Exception {
         mvc.perform(post("/api/courses")
                 .contentType(MediaType.APPLICATION_JSON)
-                .content("{\"courseType\":\"전공필수\"," +
+                .content("{\"courseType\":\"기초교양\"," +
                         "\"courseFTF\":\"비대면\"," +
-                        "\"courseCord\":4471016," +
-                        "\"courseDivision\":3," +
-                        "\"courseName\":\"알고리즘\"," +
+                        "\"courseCord\":1100004," +
+                        "\"courseDivision\":2," +
+                        "\"courseName\":\"글쓰기와말하기(인문사회)\"," +
                         "\"courseCredit\":\"3-3-0-0\"," +
-                        "\"courseTypeDetail\":\"\"," +
-                        "\"courseTarget\":\"컴퓨터공학과()2\"," +
+                        "\"courseTypeDetail\":\"국어\"," +
+                        "\"courseTarget\":\"춘천캠퍼스/사회과학대학//1                                                          \"," +
                         "\"coursePerson\":40," +
-                        "\"courseUni\":\"IT대학\"," +
-                        "\"courseMid\":\"컴퓨터공학과\"," +
+                        "\"courseUni\":\"교양교육원\"," +
+                        "\"courseMid\":\"\"," +
                         "\"courseDep\":\"\"," +
-                        "\"corseTeach\":\"문양세\"," +
-                        "\"courseTeachType\":\"전임교원\"," +
-                        "\"courseTime\":\"월A1,목A1(한빛관 412)\"," +
+                        "\"corseTeach\":\"김옥영\"," +
+                        "\"courseTeachType\":\"강사\"," +
+                        "\"courseTime\":\"월A2,목A2(60주년기념관 314)\"," +
                         "\"courseELearning\":\"N\"}"));
 
-        Department department = new Department("컴퓨터과학", "");
+        Department department = new Department("컴퓨터공학과", "");
         departmentService.create(department);
+
+        mvc.perform(post("/api/curriculums")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\n" +
+                        "        \"curriculumUni\":\"IT대학\",\n" +
+                        "        \"curriculumName\":\"컴퓨터공학과\",\n" +
+                        "        \"foundation\":10,\n" +
+                        "        \"balance\":12,\n" +
+                        "        \"specialization\":1,\n" +
+                        "        \"byUni\":18,\n" +
+                        "        \"sumCulture\":41,\n" +
+                        "        \"majorNecessary\":12,\n" +
+                        "        \"majorSelection\":30,\n" +
+                        "        \"majorDeepening\":12,\n" +
+                        "        \"majorSum\":54,\n" +
+                        "        \"freeChoice\":35,\n" +
+                        "        \"allSum\":130,\n" +
+                        "        \"curriculumYear\":\"2020\"}"))
+                .andExpect(status().isCreated())
+                .andExpect(content().string(Matchers.containsString("Success")));
 
         RegisterAccountDto account = new RegisterAccountDto();
         account.setName("홍석준");
         account.setPassword("1234");
-        account.setMajor("컴퓨터과학");
+        account.setMajor("컴퓨터공학과");
         account.setUniYear(4);
         account.setSemester(Semester.FALL);
-        account.setStudentId("201513501");
+        account.setStudentId("202013501");
         accountService.registerAccount(account);
+
     }
 
     @AfterEach
@@ -88,6 +115,8 @@ public class MyCourseControllerTest {
         myCourseRepository.deleteAll();
         accountRepository.deleteAll();
         departmentRepository.deleteAll();
+        creditRepository.deleteAll();
+        curriculumRepository.deleteAll();
     }
 
     @Test
@@ -99,7 +128,7 @@ public class MyCourseControllerTest {
 
         // Then
         mvc.perform(get("/api/mycourses")
-                .header("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdHVkZW50SWQiOiIyMDE1MTM1MDEiLCJuYW1lIjoi7ZmN7ISd7KSAIn0.43yzmbjYFAxNq7StIpH7QpuZp8M8lrj8A3X-CLJm78M"))
+                .header("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdHVkZW50SWQiOiIyMDIwMTM1MDEiLCJuYW1lIjoi7ZmN7ISd7KSAIn0.-Xxbj2jEITDEaipPlSjFZGwyh8ev71P_SVbtWgdkKfA"))
                 .andExpect(status().isOk())
                 .andDo(print());
     }
@@ -108,10 +137,12 @@ public class MyCourseControllerTest {
     @DisplayName("수강 내역 추가 - 정상 입력")
     void createMyCourse() throws Exception {
         // Given
+        Credit credit = creditRepository.findByStudentId("202013501");
+        System.out.println(credit.toString());
 
         //When
         mvc.perform(post("/api/mycourses")
-                .header("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdHVkZW50SWQiOiIyMDE1MTM1MDEiLCJuYW1lIjoi7ZmN7ISd7KSAIn0.43yzmbjYFAxNq7StIpH7QpuZp8M8lrj8A3X-CLJm78M")
+                .header("Authorization", "Bearer eyJhbGciOiJIUzI1NiJ9.eyJzdHVkZW50SWQiOiIyMDIwMTM1MDEiLCJuYW1lIjoi7ZmN7ISd7KSAIn0.-Xxbj2jEITDEaipPlSjFZGwyh8ev71P_SVbtWgdkKfA")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("[{\"courseId\": 1," +
                         "\"grade\": \"AP\"," +
@@ -123,6 +154,8 @@ public class MyCourseControllerTest {
         List<MyCourse> myCourseList = myCourseRepository.findAll();
         assertEquals(1, myCourseList.size());
         assertEquals(1L, myCourseList.get(0).getCourseId());
-        System.out.println(myCourseList.get(0).toString());
+
+        credit = creditRepository.findByStudentId("202013501");
+        System.out.println(credit.toString());
     }
 }

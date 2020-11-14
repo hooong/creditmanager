@@ -54,7 +54,7 @@ public class MyCourseService {
 
             // 학점 추가 메소드
             // 수업, studentId 넘겨주고 알아서 하게끔.
-            creditService.calcCredit(studentId, course);
+            creditService.calcCredit(myCourse);
         }
     }
 

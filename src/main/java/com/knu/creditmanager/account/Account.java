@@ -65,4 +65,22 @@ public class Account {
     public void setAdmissionYear() {
         admissionYear = studentId.substring(0,4);
     }
+
+    @Override
+    public String toString() {
+        return "Account{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", studentId='" + studentId + '\'' +
+                ", password='" + password + '\'' +
+                ", uniYear=" + uniYear +
+                ", semester=" + semester +
+                ", major=" + major +
+                ", avgGrade=" + avgGrade +
+                ", admissionYear='" + admissionYear + '\'' +
+                ", isDeleted=" + isDeleted +
+                ", isMulti=" + isMulti +
+                ", istransfer=" + istransfer +
+                '}';
+    }
 }

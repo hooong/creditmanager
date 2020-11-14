@@ -15,7 +15,7 @@ public class CurriculumService {
     }
 
     public Curriculum getCurriculumByMajorAndYear(String major, String year) {
-        return curriculumRepository.findByCurriculumYearAndCurriculumName(year, major);
+        return curriculumRepository.findByCurriculumNameAndCurriculumYear(major, year);
     }
 
     public Long createCurriculum(Curriculum curriculum) {

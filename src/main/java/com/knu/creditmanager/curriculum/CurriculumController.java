@@ -25,4 +25,6 @@ public class CurriculumController {
         return ResponseEntity.created(location).body("{\"message\": \"Success Created\"}");
     }
 
+    // TODO: 커리큘럼 조회
+
 }

@@ -9,5 +9,5 @@ import java.util.Optional;
 public interface CurriculumRepository extends JpaRepository<Curriculum, Long> {
     Optional<Curriculum> findByCurriculumYear(String year);
 
-    Curriculum findByCurriculumYearAndCurriculumName(String year, String major);
+    Curriculum findByCurriculumNameAndCurriculumYear(String major, String year);
 }
