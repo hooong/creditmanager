@@ -19,7 +19,7 @@ public class Credit {
     @NonNull
     private String studentId;
 
-    private String curriculumYear;
+    private Long curriculumId;
 
     // 기초교양
     private Integer foundation;
@@ -54,12 +54,12 @@ public class Credit {
     // 전체 총점 130
     private Integer allSum;
 
-    public Credit(String studentId, String curriculumYear, Integer foundation, Integer balance,
+    public Credit(String studentId, Long curriculumId, Integer foundation, Integer balance,
                   Integer specialization, Integer byUni, Integer sumCulture,
                   Integer majorNecessary, Integer majorSelection, Integer majorDeepening,
                   Integer majorSum, Integer freeChoice, Integer allSum) {
         this.studentId = studentId;
-        this.curriculumYear = curriculumYear;
+        this.curriculumId = curriculumId;
         this.foundation = foundation;
         this.balance = balance;
         this.specialization = specialization;

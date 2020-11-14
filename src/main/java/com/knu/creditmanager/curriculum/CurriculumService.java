@@ -10,8 +10,12 @@ public class CurriculumService {
 
     private final CurriculumRepository curriculumRepository;
 
-    public Curriculum getCurriculum(String year){
-        return curriculumRepository.findByCurriculumYear(year).orElse(null);
+    public Curriculum getCurriculum(Long id){
+        return curriculumRepository.findById(id).orElse(null);
+    }
+
+    public Curriculum getCurriculumByMajorAndYear(String major, String year) {
+        return curriculumRepository.findByCurriculumYearAndCurriculumName(year, major);
     }
 
     public Long createCurriculum(Curriculum curriculum) {

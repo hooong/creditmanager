@@ -1,5 +1,7 @@
 package com.knu.creditmanager.credit;
 
+import com.knu.creditmanager.account.Account;
+import com.knu.creditmanager.account.AccountService;
 import com.knu.creditmanager.curriculum.Curriculum;
 import com.knu.creditmanager.curriculum.CurriculumService;
 import lombok.RequiredArgsConstructor;
@@ -12,20 +14,29 @@ public class CreditService {
     private final CreditRepository creditRepository;
     private final CurriculumService curriculumService;
 
-    public void saveCredit(String studentId, String year) {
-        Credit credit = createCredit(studentId, year);
-
-        creditRepository.save(credit);
+    public Long saveCredit(Credit credit) {
+        return creditRepository.save(credit).getId();
     }
 
-    private Credit createCredit(String studentId, String year) {
-        Curriculum curriculum = curriculumService.getCurriculum(year);
+    public Long firstCreateCredit(Account account) {
+        Credit credit = createCredit(account);
+
+        return creditRepository.save(credit).getId();
+    }
+
+    private Credit createCredit(Account account) {
+        Curriculum curriculum =
+                curriculumService.getCurriculumByMajorAndYear(
+                        account.getMajor().getName(),
+                        account.getAdmissionYear());
+
 
         if (curriculum == null) {
             // TODO : 커리큘럼을 찾을 수 없는 에러
         }
 
-        return new Credit(studentId, year,
+        return new Credit(account.getStudentId(),
+                curriculum.getId(),
                 curriculum.getFoundation(),
                 curriculum.getBalance(),
                 curriculum.getSpecialization(),
@@ -39,21 +50,8 @@ public class CreditService {
                 curriculum.getAllSum());
     }
 
-//    public void calcCredit(CourseSession courseSession, String studentId) {
-//        Credit credit = creditRepository.findByStudentId(studentId);
-//
-//        String type = courseSession.getCourseType();
-//
-//        if (type.equals("균형교양") || type.equals("기초교양") || type.equals("특화교양") || type.equals("대학별교양")) {
-//            if (credit.getSumCulture() > 0) {
-//
-//            }
-//        } else if (type.equals("전공필수") || type.equals("전공선택") || type.equals("전공심화")) {
-//
-//        } else if (type.equals("자유선택")) {
-//
-//        }
-//
-//    }
+    public Credit findCredit(String studentId) {
+        return creditRepository.findByStudentId(studentId);
+    }
 
 }
