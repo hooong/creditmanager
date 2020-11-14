@@ -19,14 +19,26 @@ public class UniversityService {
         University university = University.builder()
                 .name(resource.getName()).build();
 
+        university = universityRepository.save(university);
+
         for (Department department: resource.getDepartment()) {
             departmentService.create(department, university.getId());
         }
 
-        return universityRepository.save(university);
+        return university;
     }
 
     public University getUniv(Long univId) {
         return universityRepository.findById(univId).orElse(null);
+    }
+
+    public List<University> getAllUniversity() {
+        List<University> universityList = universityRepository.findAll();
+
+        for (University univ: universityList) {
+            univ.setDepartment(departmentService.getAllDepartment());
+        }
+
+        return universityList;
     }
 }

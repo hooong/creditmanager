@@ -20,5 +20,6 @@ public class University{
 
     @OneToMany(fetch=FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name="university_id")
+    @Setter
     private List<Department> department;
 }

@@ -1,5 +1,6 @@
 package com.knu.creditmanager.univercity;
 
+import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
@@ -26,5 +27,10 @@ public class UniversityController {
         }
 
         return ResponseEntity.created(new URI("")).body("{\"message\": \"Success Created\"}");
+    }
+
+    @GetMapping
+    public List<University> getAllUniv() {
+        return universityService.getAllUniversity();
     }
 }

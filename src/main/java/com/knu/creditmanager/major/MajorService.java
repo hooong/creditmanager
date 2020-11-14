@@ -3,6 +3,8 @@ package com.knu.creditmanager.major;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class MajorService {
@@ -20,5 +22,9 @@ public class MajorService {
 
     public Major getMajor(String name) {
         return majorRepository.findByName(name);
+    }
+
+    public List<Major> getAllMajor() {
+        return majorRepository.findAll();
     }
 }

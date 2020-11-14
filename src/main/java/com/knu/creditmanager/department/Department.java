@@ -24,6 +24,7 @@ public class Department {
     @Column(name = "university_id")
     private Long universityId;
 
+    @Setter
     @OneToMany(fetch= FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name="department_id")
     private List<Major> major;

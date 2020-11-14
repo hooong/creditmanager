@@ -17,7 +17,13 @@ public class DepartmentService {
     private final MajorService majorService;
 
     public List<Department> getAllDepartment() {
-        return departmentRepository.findAll();
+        List<Department> departmentList = departmentRepository.findAll();
+
+        for (Department department: departmentList) {
+            department.setMajor(majorService.getAllMajor());
+        }
+
+        return departmentList;
     }
 
     public Department getDepartment(String name) {
@@ -43,11 +49,13 @@ public class DepartmentService {
         Department department =
                 Department.builder().name(resource.getName()).universityId(univId).build();
 
+        department = departmentRepository.save(department);
+
         for (Major major: resource.getMajor()) {
             majorService.createMajor(major, department.getId());
         }
 
-        return departmentRepository.save(department);
+        return department;
     }
 
     public void createAll(List<Department> departmentList) {
