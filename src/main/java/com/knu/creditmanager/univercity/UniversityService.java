@@ -36,7 +36,7 @@ public class UniversityService {
         List<University> universityList = universityRepository.findAll();
 
         for (University univ: universityList) {
-            univ.setDepartment(departmentService.getAllDepartment());
+            univ.setDepartment(departmentService.getAllDepartmentByUniv(univ.getId()));
         }
 
         return universityList;

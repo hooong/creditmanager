@@ -20,7 +20,7 @@ public class DepartmentService {
         List<Department> departmentList = departmentRepository.findAll();
 
         for (Department department: departmentList) {
-            department.setMajor(majorService.getAllMajor());
+            department.setMajor(majorService.getMajorByDepartment(department.getId()));
         }
 
         return departmentList;
@@ -67,5 +67,9 @@ public class DepartmentService {
                 departmentRepository.save(department);
             }
         }
+    }
+
+    public List<Department> getAllDepartmentByUniv(Long id) {
+        return departmentRepository.findByUniversityId(id);
     }
 }

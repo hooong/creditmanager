@@ -27,4 +27,8 @@ public class MajorService {
     public List<Major> getAllMajor() {
         return majorRepository.findAll();
     }
+
+    public List<Major> getMajorByDepartment(Long id) {
+        return majorRepository.findAllByDepartmentId(id);
+    }
 }
