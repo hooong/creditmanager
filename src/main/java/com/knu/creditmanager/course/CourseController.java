@@ -49,5 +49,8 @@ public class CourseController {
     }
 
     // TODO: 수업 검색 구현
-
+    @GetMapping("/api/courses/search")
+    public List<Course> typeAndTargetCourses(@RequestBody CourseDto courseDto){
+        return courseService.getCourseByTypeAndTarget(courseDto.getCourseType(),courseDto.getCourseTarget());
+    }
 }
