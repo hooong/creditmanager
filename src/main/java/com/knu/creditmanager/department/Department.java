@@ -1,12 +1,10 @@
 package com.knu.creditmanager.department;
 
 import com.knu.creditmanager.account.Account;
+import com.knu.creditmanager.major.Major;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.*;
 import java.util.List;
 
 @Entity
@@ -17,17 +15,17 @@ import java.util.List;
 @RequiredArgsConstructor
 public class Department {
 
-    public Department(String name, String link) {
-        this.name = name;
-        this.link = link;
-    }
-
     @Id @GeneratedValue
     private Long id;
 
     @NonNull
     private String name;
 
-    private String link;
+    @Column(name = "university_id")
+    private Long universityId;
+
+    @OneToMany(fetch= FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name="department_id")
+    private List<Major> major;
 
 }

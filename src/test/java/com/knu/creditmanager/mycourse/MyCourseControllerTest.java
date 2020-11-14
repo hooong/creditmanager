@@ -14,6 +14,8 @@ import com.knu.creditmanager.department.DepartmentRepository;
 import com.knu.creditmanager.department.DepartmentService;
 import com.knu.creditmanager.grade.Grade;
 import com.knu.creditmanager.grade.Semester;
+import com.knu.creditmanager.major.Major;
+import com.knu.creditmanager.major.MajorRepository;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -49,10 +51,10 @@ public class MyCourseControllerTest {
     @Autowired CourseRepository courseRepository;
     @Autowired private AccountService accountService;
     @Autowired private AccountRepository accountRepository;
-    @Autowired private DepartmentService departmentService;
     @Autowired private DepartmentRepository departmentRepository;
     @Autowired private CreditRepository creditRepository;
     @Autowired private CurriculumRepository curriculumRepository;
+    @Autowired private MajorRepository majorRepository;
 
     @BeforeEach
     void beforeEach() throws Exception {
@@ -75,8 +77,8 @@ public class MyCourseControllerTest {
                         "\"courseTime\":\"월A2,목A2(60주년기념관 314)\"," +
                         "\"courseELearning\":\"N\"}"));
 
-        Department department = new Department("컴퓨터공학과", "");
-        departmentService.create(department);
+        Major major = Major.builder().name("컴퓨터공학과").link("").build();
+        majorRepository.save(major);
 
         mvc.perform(post("/api/curriculums")
                 .contentType(MediaType.APPLICATION_JSON)

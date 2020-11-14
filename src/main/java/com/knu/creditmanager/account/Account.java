@@ -3,6 +3,7 @@ package com.knu.creditmanager.account;
 import com.knu.creditmanager.department.Department;
 import com.knu.creditmanager.grade.GradeBySemester;
 import com.knu.creditmanager.grade.Semester;
+import com.knu.creditmanager.major.Major;
 import lombok.*;
 import org.hibernate.annotations.ColumnDefault;
 
@@ -36,10 +37,9 @@ public class Account {
     @NonNull
     private Semester semester;
 
-    @NonNull
     @ManyToOne
-    @JoinColumn(name="department_id")
-    private Department major;       // 학과
+    @JoinColumn(name = "major_id")
+    private Major major;
 
     // 수업
     //    @Transient

@@ -6,6 +6,8 @@ import com.knu.creditmanager.department.Department;
 import com.knu.creditmanager.exception.PasswordWrongException;
 import com.knu.creditmanager.exception.StudentIdExistedException;
 import com.knu.creditmanager.exception.StudentIdNotExistedException;
+import com.knu.creditmanager.major.Major;
+import com.knu.creditmanager.major.MajorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,7 @@ public class AccountService {
     private final DepartmentService departmentService;
     private final PasswordEncoder passwordEncoder;
     private final CreditService creditService;
+    private final MajorService majorService;
 
     @Transactional(readOnly = true)
     public List<Account> getAllAccounts() {
@@ -41,15 +44,15 @@ public class AccountService {
        }
 
         String encodedPassWord = passwordEncoder.encode(registerAccountDto.getPassword());
-        Department department = departmentService.getDepartment(registerAccountDto.getMajor());
+        Major major = majorService.getMajor(registerAccountDto.getMajor());
 
-        Account account = new Account(registerAccountDto.getName(),
-                registerAccountDto.getStudentId(),
-                encodedPassWord,
-                registerAccountDto.getUniYear(),
-                registerAccountDto.getSemester(),
-                department
-                );
+        Account account = Account.builder()
+                .name(registerAccountDto.getName())
+                .studentId(registerAccountDto.getStudentId())
+                .password(encodedPassWord)
+                .uniYear(registerAccountDto.getUniYear())
+                .semester(registerAccountDto.getSemester())
+                .major(major).build();
         account.setAdmissionYear();
 
         creditService.firstCreateCredit(account);
