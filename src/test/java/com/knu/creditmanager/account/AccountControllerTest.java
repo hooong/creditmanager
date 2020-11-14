@@ -5,6 +5,8 @@ import com.knu.creditmanager.department.DepartmentRepository;
 import com.knu.creditmanager.department.DepartmentService;
 import com.knu.creditmanager.department.Department;
 import com.knu.creditmanager.grade.Semester;
+import com.knu.creditmanager.major.Major;
+import com.knu.creditmanager.major.MajorRepository;
 import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -33,11 +35,12 @@ class AccountControllerTest {
     @Autowired DepartmentService departmentService;
     @Autowired DepartmentRepository departmentRepository;
     @Autowired CurriculumRepository curriculumRepository;
+    @Autowired MajorRepository majorRepository;
 
     @BeforeEach
     void beforeEach() throws Exception {
-        Department department = new Department("컴퓨터과학", "");
-        departmentService.create(department);
+        Major major = Major.builder().name("컴퓨터공학과").link("").build();
+        majorRepository.save(major);
 
         RegisterAccountDto account = new RegisterAccountDto();
         account.setName("홍석준");

@@ -32,8 +32,7 @@ class DepartmentControllerTest {
 
     @BeforeEach
     void beforeEach() {
-        Department department = new Department("컴퓨터과학", "test.com");
-        departmentRepository.save(department);
+
     }
 
     @AfterEach
